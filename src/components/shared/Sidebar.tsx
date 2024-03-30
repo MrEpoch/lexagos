@@ -3,7 +3,6 @@ import React from "react";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -11,13 +10,16 @@ import {
 import { sidebarData } from "@/lib/constant";
 import Image from "next/image";
 import { Menu } from "lucide-react";
+import { FloatingNav } from "../ui/floating-navbar";
 
 export default function Sidebar() {
   return (
     <Sheet>
-      <SheetTrigger className="fixed z-50 p-8 top-0 right-0">
-        <Menu />
-      </SheetTrigger>
+      <FloatingNav logoInfo={{ logoName: "Lexagos", logo: "/assets/Logo.png" }}>
+        <SheetTrigger className="">
+          <Menu />
+        </SheetTrigger>
+      </FloatingNav>
       <SheetContent side={"left"}>
         <SheetHeader className="">
           <SheetTitle className="flex items-center gap-2">

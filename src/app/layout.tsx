@@ -4,6 +4,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "next-themes";
 import Sidebar from "@/components/shared/Sidebar";
+import Footer from "@/components/shared/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,9 +24,9 @@ export default function RootLayout({
         <body className={inter.className}>
           <ThemeProvider attribute="class" enableSystem defaultTheme="dark">
             <div className="min-h-screen h-full w-full bg-black">
-              {children}
-
               <Sidebar />
+              {children}
+              <Footer />
             </div>
           </ThemeProvider>
         </body>

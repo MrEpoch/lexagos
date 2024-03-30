@@ -4,7 +4,7 @@ import { GlobeLoaded } from '../World'
 export default function Landing() {
   return (
     <div className="min-h-screen w-full">
-        <div className="flex text-center h-full w-full items-center justify-around flex-col">
+        <div className="flex pt-32 text-center h-full w-full items-center justify-around flex-col">
           <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
             We revolutionize e-learning
           </h1>

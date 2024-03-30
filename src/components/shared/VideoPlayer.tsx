@@ -29,7 +29,7 @@ export default function VideoPlayer({
         aria-label="Watch the video"
       >
         <Image
-          className="rounded-3xl shadow-2xl h-80 h-full object-cover transition-shadow duration-300 ease-in-out"
+          className="rounded-3xl shadow-2xl h-full object-cover transition-shadow duration-300 ease-in-out"
           src={thumb}
           width={thumbWidth}
           height={thumbHeight}

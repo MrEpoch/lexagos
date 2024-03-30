@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function Page() {
-  return <div>Page</div>;
+  return <div className="min-h-screen w-full">Page</div>;
 }
