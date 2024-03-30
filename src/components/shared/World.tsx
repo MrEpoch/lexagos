@@ -396,7 +396,7 @@ export function GlobeLoaded() {
 
   return (
     <div className="flex mt-8 flex-row items-center justify-center py-20 h-screen md:h-auto relative w-full">
-      <div className="absolute -bottom-20 h-72 w-72 md:w-[300px] md:h-[300px] z-10">
+      <div className="h-72 w-[300] md:w-[350px] md:h-[300px] z-10">
         <World data={sampleArcs} globeConfig={globeConfig} />
       </div>
     </div>

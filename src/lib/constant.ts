@@ -22,3 +22,27 @@ export const sidebarData = [
     icon: Video,
   },
 ];
+
+export const homePageCards = [
+  {
+    title: "Programming",
+    description:
+      "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
+    link: "/courses",
+    imgSrc: "/assets/python.svg",
+  },
+  {
+    title: "Business",
+    description:
+      "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat..",
+    link: "/courses",
+    imgSrc: "/assets/business.svg",
+  },
+  {
+    title: "Languages",
+    description:
+      "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
+    link: "/courses",
+    imgSrc: "/assets/language.svg",
+  }
+]

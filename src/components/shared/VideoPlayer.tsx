@@ -24,12 +24,12 @@ export default function VideoPlayer({
   return (
     <>
       <button
-        className="relative w-full flex justify-center items-center focus:outline-none focus-visible:ring focus-visible:ring-orange-300 rounded-3xl group"
+        className="relative w-full h-full flex justify-center items-center focus:outline-none focus-visible:ring focus-visible:ring-primary rounded-3xl group"
         onClick={() => setModalOpen(true)}
         aria-label="Watch the video"
       >
         <Image
-          className="rounded-3xl shadow-2xl transition-shadow duration-300 ease-in-out"
+          className="rounded-3xl shadow-2xl h-80 h-full object-cover transition-shadow duration-300 ease-in-out"
           src={thumb}
           width={thumbWidth}
           height={thumbHeight}
@@ -43,7 +43,7 @@ export default function VideoPlayer({
           height="72"
         >
           <circle
-            className="text-darkmode-400"
+            className="text-card"
             fill="currentColor"
             cx="36"
             cy="36"
@@ -51,7 +51,7 @@ export default function VideoPlayer({
             fillOpacity=".8"
           />
           <path
-            className="fill-orange-500 drop-shadow-2xl"
+            className="fill-primary drop-shadow-2xl"
             d="M44 36a.999.999 0 0 0-.427-.82l-10-7A1 1 0 0 0 32 29V43a.999.999 0 0 0 1.573.82l10-7A.995.995 0 0 0 44 36V36c0 .001 0 .001 0 0Z"
           />
         </svg>

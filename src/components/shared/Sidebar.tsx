@@ -15,7 +15,7 @@ import { Menu } from "lucide-react";
 export default function Sidebar() {
   return (
     <Sheet>
-      <SheetTrigger className="fixed bg-black p-8 top-0 right-0">
+      <SheetTrigger className="fixed z-50 p-8 top-0 right-0">
         <Menu />
       </SheetTrigger>
       <SheetContent side={"left"}>
