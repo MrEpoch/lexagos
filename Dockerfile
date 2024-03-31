@@ -19,6 +19,7 @@ COPY . .
 
 EXPOSE 5432
 
+RUN npx prisma generate
 
 # Expose port 3000
 EXPOSE 3000

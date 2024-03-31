@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider, auth } from "@clerk/nextjs";
 import { ThemeProvider } from "next-themes";
 import Sidebar from "@/components/shared/Sidebar";
 import Footer from "@/components/shared/Footer";
+import { dark } from "@clerk/themes";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,13 +19,24 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  let isLogged = false;
+  const { userId } = auth();
+
+  if (userId) isLogged = true;
+
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark,
+        variables: { colorPrimary: "#0ea5e9" },
+        elements: { card: "bg-white dark:bg-secondary" },
+      }}
+    >
       <html lang="en">
         <body className={inter.className}>
           <ThemeProvider attribute="class" enableSystem defaultTheme="dark">
             <div className="min-h-screen h-full w-full bg-black">
-              <Sidebar />
+              <Sidebar isLogged={isLogged} />
               {children}
               <Footer />
             </div>

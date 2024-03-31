@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
@@ -23,21 +23,21 @@ export const HoverEffect = ({
     <div
       className={cn(
         "flex flex-wrap items-center justify-center sm:grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3  py-10",
-        className
+        className,
       )}
     >
       {items.map((item, idx) => (
         <Link
           href={item?.link}
           key={item?.link}
-        className="relative group  block p-2 h-full w-64 sm:w-full"
+          className="relative group  block p-2 h-full w-64 sm:w-full"
           onMouseEnter={() => setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}
         >
           <AnimatePresence>
             {hoveredIndex === idx && (
               <motion.span
-              className="absolute inset-0 h-full w-full  dark:bg-secondary/50 block  rounded-3xl"
+                className="absolute inset-0 h-full w-full  dark:bg-secondary/50 block  rounded-3xl"
                 layoutId="hoverBackground"
                 initial={{ opacity: 0 }}
                 animate={{
@@ -73,7 +73,7 @@ export const Card = ({
     <div
       className={cn(
         "rounded-2xl h-full w-full p-4 overflow-hidden bg-black border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-20",
-        className
+        className,
       )}
     >
       <div className="relative z-50">
@@ -107,17 +107,14 @@ export const CardImage = ({
 }) => {
   return (
     <Image
-    src={src}
-      className={cn(
-        "w-full h-full object-cover rounded-3xl",
-        className
-      )}
-    alt={alt}
-    width={500}
-    height={500}
+      src={src}
+      className={cn("w-full h-full object-cover rounded-3xl", className)}
+      alt={alt}
+      width={500}
+      height={500}
     />
   );
-}
+};
 
 export const CardDescription = ({
   className,
@@ -130,11 +127,10 @@ export const CardDescription = ({
     <p
       className={cn(
         "mt-8 text-zinc-400 tracking-wide leading-relaxed text-sm",
-        className
+        className,
       )}
     >
       {children}
     </p>
   );
 };
-

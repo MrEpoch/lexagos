@@ -1,4 +1,11 @@
-import { Contact, Home, PersonStanding, Video } from "lucide-react";
+import {
+  Contact,
+  Home,
+  LogIn,
+  PersonStanding,
+  UserPlus,
+  Video,
+} from "lucide-react";
 
 export const sidebarData = [
   {
@@ -20,6 +27,17 @@ export const sidebarData = [
     link: "/courses",
     text: "Courses",
     icon: Video,
+  },
+
+  {
+    link: "/sign-in",
+    text: "Log In",
+    icon: LogIn,
+  },
+  {
+    link: "/sign-up",
+    text: "Sign Up",
+    icon: UserPlus,
   },
 ];
 
@@ -44,5 +62,5 @@ export const homePageCards = [
       "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
     link: "/courses",
     imgSrc: "/assets/language.svg",
-  }
-]
+  },
+];
