@@ -12,3 +12,76 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id String @id @default(uuid())
+  clerkId String @unique
+  membershipId String
+
+  username String @unique
+  email String @unique
+  photo String
+  firstName String?
+  lastName String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
+
+  isCourseCreator Boolean @default(false)
+
+  Memberships Membership[]
+  courses Course[]
+  Transactions Transaction[]
+}
+
+model Membership {
+  id String @id @default(uuid())
+  
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  isActive Boolean @default(true)
+
+  endDate DateTime
+  startDate DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
+}
+
+model Course {
+  id String @id @default(uuid())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
+
+  name String
+  description String
+  photo String
+  price Int
+
+  courseCreatorId String
+  courseCreator User @relation(fields: [courseCreatorId], references: [id])
+
+  // Maybe later i will add parameters for true course, like video url
+  // courseParts CoursePart[]
+}
+
+enum MembershipType {
+  days30
+  days90
+  days365
+}
+
+model Transaction {
+  id String @id @default(uuid())
+  stripeId String @unique
+
+  amount Int
+  membershipType MembershipType
+  
+  buyerId String
+  buyer User @relation(fields: [buyerId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
+}
