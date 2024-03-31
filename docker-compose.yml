@@ -1,16 +1,5 @@
 version: "3"
 services:
-  db:
-    image: postgres
-    environment:
-      POSTGRES_USER: alex
-      POSTGRES_PASSWORD: 4d1a3fddf1f503411b1bc322414a768fd553dcfff9e9ec2a2001deaca11ecbe2a6b7cb77f02cd28a702f4d1021c1375c6ed3a46f3ceeef1966afbade83ada65a
-      POSTGRES_DB: postgres
-    ports:
-      - "5432:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-
   nextjs:
     build:
       context: .
@@ -22,9 +11,6 @@ services:
       - .env.local
     environment:
       - NODE_ENV=development
-    depends_on:
-      db:
-        condition: service_started
     volumes:
       - .:/app
     container_name: nextjs

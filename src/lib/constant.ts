@@ -64,3 +64,91 @@ export const homePageCards = [
     imgSrc: "/assets/language.svg",
   },
 ];
+
+export const dummyCardContent = [
+  {
+    title: "Book",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    type: "business",
+    link: "/courses",
+    imgSrc: "/assets/book.jpg",
+  },
+  {
+    title: "Book",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    type: "business",
+    link: "/courses",
+    imgSrc: "/assets/book.jpg",
+  },
+  {
+    title: "Book",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    type: "business",
+    link: "/courses",
+    imgSrc: "/assets/book.jpg",
+  },
+  {
+    title: "Book",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    type: "business",
+    link: "/courses",
+    imgSrc: "/assets/book.jpg",
+  },
+  {
+    title: "Book",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    type: "business",
+    link: "/",
+    imgSrc: "/assets/book.jpg",
+  },
+  {
+    title: "Book",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    type: "business",
+    link: "/courses",
+    imgSrc: "/assets/book.jpg",
+  },
+  {
+    title: "Book",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    type: "business",
+    link: "/courses",
+    imgSrc: "/assets/book.jpg",
+  },
+  {
+    title: "Book",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    type: "business",
+    link: "/courses",
+    imgSrc: "/assets/book.jpg",
+  },
+  {
+    title: "Book",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    type: "business",
+    link: "/courses",
+    imgSrc: "/assets/book.jpg",
+  },
+  {
+    title: "Book",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    type: "business",
+    link: "/courses",
+    imgSrc: "/assets/book.jpg",
+  },
+  {
+    title: "Book",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    type: "business",
+    link: "/courses",
+    imgSrc: "/assets/book.jpg",
+  },
+  {
+    title: "Book",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    type: "business",
+    link: "/courses",
+    imgSrc: "/assets/book.jpg",
+  },
+];
+
