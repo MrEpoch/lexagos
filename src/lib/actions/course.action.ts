@@ -1,10 +1,12 @@
 'use server';
 import { revalidatePath } from "next/cache";
+import cloudinary from "cloudinary";
 import { prisma } from "../db";
 import { redirect } from "next/navigation";
-import { createImage } from "@/lib/utils";
 import { z } from "zod";
 import { FILE_TYPES } from "@/components/shared/courses/ActionForm";
+import DataURIParser from "datauri/parser";
+import path from "path";
 
 export interface CourseProps {
   name: string;
@@ -85,5 +87,28 @@ export async function createCourse({ data, requestOrigin }: CreateCourseProps) {
     return JSON.parse(JSON.stringify(newCourse));
   } catch (error) {
     redirect("/course-actions?error=course-create-failed");
+  }
+}
+
+export async function createImage(img: any) {
+  try {
+    cloudinary.v2.config({
+      cloud_name: process.env.CLOUDINARY_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET,
+    });
+
+    const parser = new DataURIParser();
+    const base64Image = parser.format(
+      path.extname(img.name).toString(),
+      await img.arrayBuffer(),
+    );
+    const uploadedImageResponse = await cloudinary.v2.uploader.upload(
+      base64Image.content as string,
+      { resource_type: "image" },
+    );
+    return uploadedImageResponse;
+  } catch (error) {
+    throw new Error("Failed to create image: " + error);
   }
 }
