@@ -1,6 +1,7 @@
 import {
   Contact,
   Home,
+  LayoutDashboard,
   LogIn,
   PersonStanding,
   UserPlus,
@@ -28,7 +29,6 @@ export const sidebarData = [
     text: "Courses",
     icon: Video,
   },
-
   {
     link: "/sign-in",
     text: "Log In",
@@ -39,6 +39,11 @@ export const sidebarData = [
     text: "Sign Up",
     icon: UserPlus,
   },
+  {
+    link: "/actions",
+    text: "Actions",
+    icon: LayoutDashboard,
+  }
 ];
 
 export const homePageCards = [
@@ -152,3 +157,9 @@ export const dummyCardContent = [
   },
 ];
 
+export const errorKinds = {
+  "course-create-failed": {
+    title: "Course creation failed",
+    description: "Please try again later.",
+  }
+}

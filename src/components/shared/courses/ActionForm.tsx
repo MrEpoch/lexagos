@@ -15,11 +15,12 @@ import { useEffect, useState } from "react"
 import { useToast } from "@/components/ui/use-toast"
 import ImageHandler from "./ImageHandler"
 
+const fileTypes = ['image/png', 'image/jpg', 'image/jpeg']
 export const formSchema = z.object({
   title: z.string().min(3, { message: "Must be 3 or more characters long" }).max(50, { message: "Must be 50 or fewer characters long" }),
   description: z.string().min(3, { message: "Must be 3 or more characters long" }).max(200, { message: "Must be 200 or fewer characters long" }),
   price: z.string().min(1, { message: "Must be 1 or more characters long" }).max(4, { message: "Must be 4 or fewer characters long" }),
-  image: z.instanceof(File),
+  image: z.custom<File>(val => val instanceof File, { message: "Must be an image" }).refine(file => fileTypes.includes(file.type), { message: "Must be an image" }),
   isSaved: z.boolean().optional()
 })
 
@@ -43,7 +44,8 @@ export const formSchema = z.object({
 
   const { toast } = useToast();
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
+  function onSubmit(data: z.infer<typeof formSchema>) { 
+
     console.log(data)
   }
 
@@ -62,7 +64,7 @@ export const formSchema = z.object({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
           <CustomField
         control={form.control}
         name="title"

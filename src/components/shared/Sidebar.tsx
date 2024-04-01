@@ -13,7 +13,7 @@ import { Menu } from "lucide-react";
 import { FloatingNav } from "../ui/floating-navbar";
 import Link from "next/link";
 
-export default function Sidebar({ isLogged }: { isLogged: boolean }) {
+export default function Sidebar({ isLogged, isCreator = true }: { isLogged: boolean, isCreator?: boolean }) {
   return (
     <Sheet>
       <FloatingNav logoInfo={{ logoName: "Lexagos", logo: "/assets/Logo.png" }}>
@@ -29,7 +29,7 @@ export default function Sidebar({ isLogged }: { isLogged: boolean }) {
           </SheetTitle>
           <div className="flex h-full flex-col ">
             <ul className="flex flex-col text-gray-400 gap-4">
-              {sidebarData.slice(0, isLogged ? 4 : 6).map((item) => (
+              {sidebarData.slice(0, isLogged ? 4 : 6).concat((isLogged && isCreator) ? sidebarData[6] : []).map((item) => (
                 <li key={item.link}>
                   <Link
                     href={item.link}
