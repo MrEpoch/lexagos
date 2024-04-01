@@ -1,4 +1,9 @@
-import { FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
 import React from "react";
 import { Control } from "react-hook-form";
 import { formSchema } from "./courses/ActionForm";

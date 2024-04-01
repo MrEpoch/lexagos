@@ -2,7 +2,6 @@ import CoursesContent from "@/components/shared/courses/CoursesContent";
 import { dummyCardContent } from "@/lib/constant";
 import React from "react";
 
-
 export default async function Page({ searchParams }: { searchParams: any }) {
   const page = Number(searchParams?.page) || 1;
   const searchQuery = (searchParams?.query as string) || "";

@@ -43,7 +43,7 @@ export const sidebarData = [
     link: "/actions",
     text: "Actions",
     icon: LayoutDashboard,
-  }
+  },
 ];
 
 export const homePageCards = [
@@ -161,5 +161,5 @@ export const errorKinds = {
   "course-create-failed": {
     title: "Course creation failed",
     description: "Please try again later.",
-  }
-}
+  },
+};

@@ -25,22 +25,22 @@ export default function CourseCard({ content, isAction = false }: any) {
             {content.description.slice(0, 70).concat("...")}
           </p>
         </CardContent>
-    {isAction && (
-        <CardFooter className="flex justify-between">
-          <form action="/update" method="get">
-            <CustomDialog isUpdate={true}>
-            <Button variant="ghost" size="sm">
-              <Pencil className="w-5 h-5 text-slate-400" />
-            </Button>
-            </CustomDialog>
-          </form>
-          <form action="/delete" method="get">
-            <Button variant="ghost" size="sm">
-              <Trash className="w-5 h-5 text-slate-400" />
-            </Button>
-          </form>
-        </CardFooter>
-    )}
+        {isAction && (
+          <CardFooter className="flex justify-between">
+            <form action="/update" method="get">
+              <CustomDialog isUpdate={true}>
+                <Button variant="ghost" size="sm">
+                  <Pencil className="w-5 h-5 text-slate-400" />
+                </Button>
+              </CustomDialog>
+            </form>
+            <form action="/delete" method="get">
+              <Button variant="ghost" size="sm">
+                <Trash className="w-5 h-5 text-slate-400" />
+              </Button>
+            </form>
+          </CardFooter>
+        )}
       </Card>
     </Link>
   );

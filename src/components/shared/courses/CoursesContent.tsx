@@ -11,7 +11,15 @@ import {
 import { useRouter, useSearchParams } from "next/navigation";
 import { formUrlQuery } from "@/lib/utils";
 
-export default function CoursesContent({ totalPages, page, courses }: { totalPages: number; page: number; courses: any[] }) {
+export default function CoursesContent({
+  totalPages,
+  page,
+  courses,
+}: {
+  totalPages: number;
+  page: number;
+  courses: any[];
+}) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -30,7 +38,7 @@ export default function CoursesContent({ totalPages, page, courses }: { totalPag
   return (
     <div>
       <div className="flex flex-wrap gap-4 justify-center items-center w-full h-full">
-    {courses.map((item: any, index: number) => (
+        {courses.map((item: any, index: number) => (
           <CourseCard key={index} content={item} />
         ))}
       </div>

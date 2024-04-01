@@ -25,9 +25,19 @@ services:
     depends_on:
       db:
         condition: service_started
+      cache:
+        condition: service_started
     volumes:
       - .:/app
     container_name: nextjs
+  cache:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass 2e3a19b93485e361be5e6052fa3b328c20b2a8210bc7b6d2ea22485017c70de187ba2dc42676f9586d4e29964fa9bac94e1c4bd875b3b924d66ba2547ed5b6a8
+    volumes: 
+      - cache:/data
 
 volumes:
   pgdata:

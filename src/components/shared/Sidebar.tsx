@@ -13,7 +13,13 @@ import { Menu } from "lucide-react";
 import { FloatingNav } from "../ui/floating-navbar";
 import Link from "next/link";
 
-export default function Sidebar({ isLogged, isCreator = true }: { isLogged: boolean, isCreator?: boolean }) {
+export default function Sidebar({
+  isLogged,
+  isCreator = true,
+}: {
+  isLogged: boolean;
+  isCreator?: boolean;
+}) {
   return (
     <Sheet>
       <FloatingNav logoInfo={{ logoName: "Lexagos", logo: "/assets/Logo.png" }}>
@@ -29,17 +35,20 @@ export default function Sidebar({ isLogged, isCreator = true }: { isLogged: bool
           </SheetTitle>
           <div className="flex h-full flex-col ">
             <ul className="flex flex-col text-gray-400 gap-4">
-              {sidebarData.slice(0, isLogged ? 4 : 6).concat((isLogged && isCreator) ? sidebarData[6] : []).map((item) => (
-                <li key={item.link}>
-                  <Link
-                    href={item.link}
-                    className="flex items-center space-x-2 hover:text-white hover:bg-primary py-3 px-4 rounded-lg gap-4 text-md font-semibold"
-                  >
-                    <item.icon className="h-6 w-6" />
-                    {item.text}
-                  </Link>
-                </li>
-              ))}
+              {sidebarData
+                .slice(0, isLogged ? 4 : 6)
+                .concat(isLogged && isCreator ? sidebarData[6] : [])
+                .map((item) => (
+                  <li key={item.link}>
+                    <Link
+                      href={item.link}
+                      className="flex items-center space-x-2 hover:text-white hover:bg-primary py-3 px-4 rounded-lg gap-4 text-md font-semibold"
+                    >
+                      <item.icon className="h-6 w-6" />
+                      {item.text}
+                    </Link>
+                  </li>
+                ))}
             </ul>
           </div>
         </SheetHeader>

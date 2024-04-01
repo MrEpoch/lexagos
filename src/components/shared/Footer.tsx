@@ -18,6 +18,9 @@ export default function Footer() {
         </Link>
         <p className="text-sm text-gray-400">
           © 2022-2024 Lexagos. All rights reserved.
+          <Link href="/contact" className="hover:underline">
+            Contact
+          </Link>
         </p>
       </div>
     </footer>
