@@ -12,7 +12,6 @@ export default async function Layout({ children }: { children: React.ReactNode }
   const user = await getUserById(userId);
 
   if (!user) throw redirect('/sign-in');
-  console.log(user);
 
   return (
     <>{children}</>

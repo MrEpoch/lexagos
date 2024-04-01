@@ -6,6 +6,7 @@ import { ThemeProvider } from "next-themes";
 import Sidebar from "@/components/shared/Sidebar";
 import Footer from "@/components/shared/Footer";
 import { dark } from "@clerk/themes";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -40,6 +41,7 @@ export default function RootLayout({
               {children}
               <Footer />
             </div>
+            <Toaster />
           </ThemeProvider>
         </body>
       </html>

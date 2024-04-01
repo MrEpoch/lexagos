@@ -14,7 +14,7 @@ export default function CourseCard({ content }: any) {
             alt={content.name}
             width={500}
             height={500}
-            className="w-full rounded-xl"
+            className="w-full rounded-xl object-cover"
           />
           <h1 className="text-white font-bold text-lg">{content.title}</h1>
           <h3 className="font-medium text-gray-600">{content.type}</h3>

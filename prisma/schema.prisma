@@ -6,11 +6,13 @@
 
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model User {
@@ -55,11 +57,14 @@ model Course {
 
   name String
   description String
-  photo String
   price Int
 
   courseCreatorId String
   courseCreator User @relation(fields: [courseCreatorId], references: [id])
+
+  imageUrl String?
+  imageSignature String?
+  publicId String?
 
   // Maybe later i will add parameters for true course, like video url
   // courseParts CoursePart[]
