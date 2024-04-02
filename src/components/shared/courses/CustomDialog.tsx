@@ -1,7 +1,5 @@
 "use client";
-import { Plus } from "lucide-react";
 import React from "react";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -16,9 +14,13 @@ import ActionForm from "./ActionForm";
 export default function CustomDialog({
   isUpdate = false,
   children,
+  ip,
+  userId
 }: {
   isUpdate?: boolean;
   children: React.ReactNode;
+  ip: string;
+  userId: string;
 }) {
   return (
     <Dialog>
@@ -31,7 +33,7 @@ export default function CustomDialog({
             </DialogTitle>
             <DialogDescription>Fill in course information</DialogDescription>
           </DialogHeader>
-          <ActionForm isUpdate={isUpdate} />
+          <ActionForm userId={userId} userIp={ip} isUpdate={isUpdate} />
         </ScrollArea>
       </DialogContent>
     </Dialog>

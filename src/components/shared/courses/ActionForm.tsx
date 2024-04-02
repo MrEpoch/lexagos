@@ -10,8 +10,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { useEffect, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import ImageHandler from "./ImageHandler";
+import { CourseProps, createCourse } from "@/lib/actions/course.action";
+import { useRouter } from "next/navigation";
+import { FILE_TYPES } from "@/lib/constant";
 
-export const FILE_TYPES = ["image/png", "image/jpg", "image/jpeg"];
 export const formSchema = z.object({
   title: z
     .string()
@@ -25,11 +27,8 @@ export const formSchema = z.object({
     .string()
     .min(1, { message: "Must be 1 or more characters long" })
     .max(4, { message: "Must be 4 or fewer characters long" }),
-  image: z
-    .custom<File>((val) => val instanceof File, { message: "Must be an image" })
-    .refine((file) => FILE_TYPES.includes(file.type), {
-      message: "Must be an image",
-    }),
+  image: 
+    z.any(),
   isSaved: z.boolean().optional(),
 });
 
@@ -39,13 +38,19 @@ export default function ActionForm({
   price,
   isUpdate = false,
   imageSaved,
+  userIp,
+  userId
 }: {
   title?: string;
   description?: string;
   price?: string;
   isUpdate: boolean;
   imageSaved?: string;
+  userIp: string;
+  userId: string
 }) {
+
+  const [image, setImage] = useState<File | null>(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: imageSaved
@@ -53,26 +58,71 @@ export default function ActionForm({
           title: title,
           description: description,
           price: price,
-          image: undefined,
           isSaved: true,
         }
       : {
           title: "",
           description: "",
           price: "",
-          image: undefined,
         },
   });
-  const [image, setImage] = useState<File | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
+  const router = useRouter();
   const { toast } = useToast();
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    setSubmitting(true);
     console.log(data);
+
+    if (!image) {
+      toast({
+        title: "Error",
+        description: "Please select an image",
+        variant: "destructive",
+      })
+      setSubmitting(false);
+      return;
+    }
+
+    if (!FILE_TYPES.includes(image.type) || image.size > 5 * 1024 * 1024) {
+      toast({
+        title: "Error",
+        description: "Please select a valid image",
+        variant: "destructive",
+      })
+      setSubmitting(false);
+      return;
+    }
+
+    const submitData = {
+      name: data.title as string,
+      description: data.description as string,
+      price: parseInt(data.price) as number,
+      image: image as File,
+      userId: userId as string,
+    } as CourseProps;
+    console.log(userIp, submitData);
+    console.log(form.formState.errors, form.formState.isSubmitted);
+
+      if (isUpdate) {
+        console.log("update");
+      } else {
+        console.log("create");
+        // const course = await createCourse({ data: submitData, requestIp: userIp });
+        // if (course) {
+          //  form.reset();
+          // router.push(`/courses`);
+          //}
+      }
+    console.log("after create");
+
+    setSubmitting(false);
+    return;
   }
 
   useEffect(() => {
-    if (form.formState.errors && form.formState.isSubmitted) {
+    if (Object.keys(form.formState.errors).length && form.formState.isSubmitted) {
       console.log(form.formState.errors);
       toast({
         title: "Wrong values",
@@ -111,7 +161,7 @@ export default function ActionForm({
           image={image}
           setImage={setImage}
         />
-        <Button type="submit">
+        <Button disabled={submitting} type="submit">
           {isUpdate ? "Update course" : "Create course"}
         </Button>
       </form>

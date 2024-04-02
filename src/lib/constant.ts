@@ -163,3 +163,5 @@ export const errorKinds = {
     description: "Please try again later.",
   },
 };
+
+export const FILE_TYPES = ["image/png", "image/jpeg", "image/jpg"];

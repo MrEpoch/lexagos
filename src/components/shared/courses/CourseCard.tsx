@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Pencil, Trash } from "lucide-react";
 import CustomDialog from "./CustomDialog";
 
-export default function CourseCard({ content, isAction = false }: any) {
+export default function CourseCard({ userId, content, isAction = false, ip }: any) {
   return (
     <Link href={isAction ? "#" : content.link}>
       <Card className="hover:scale-105 transition-all duration-300 py-4 sm:w-[375px] w-[300px] max-[375px]:w-full">
@@ -28,7 +28,7 @@ export default function CourseCard({ content, isAction = false }: any) {
         {isAction && (
           <CardFooter className="flex justify-between">
             <form action="/update" method="get">
-              <CustomDialog isUpdate={true}>
+              <CustomDialog userId={userId} ip={ip} isUpdate={true}>
                 <Button variant="ghost" size="sm">
                   <Pencil className="w-5 h-5 text-slate-400" />
                 </Button>

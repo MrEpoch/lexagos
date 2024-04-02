@@ -1,12 +1,14 @@
-'use server';
+"use server";
+
 import { revalidatePath } from "next/cache";
 import cloudinary from "cloudinary";
 import { prisma } from "../db";
-import { redirect } from "next/navigation";
 import { z } from "zod";
-import { FILE_TYPES } from "@/components/shared/courses/ActionForm";
 import DataURIParser from "datauri/parser";
+import { FILE_TYPES } from "../constant";
 import path from "path";
+import { rateLimiter } from "../rateLimiter";
+import { redis } from "../redis";
 
 export interface CourseProps {
   name: string;
@@ -18,8 +20,7 @@ export interface CourseProps {
 
 interface CreateCourseProps {
   data: CourseProps;
-  userId: string;
-  requestOrigin: string;
+  requestIp: string;
 }
 
 const dataSchema = z.object({
@@ -43,20 +44,27 @@ const dataSchema = z.object({
     .min(1, { message: "Must be 1 or more characters long" }),
 });
 
-export async function createCourse({ data, requestOrigin }: CreateCourseProps) {
+export async function createCourse({ data, requestIp }: CreateCourseProps) {
+  'use server';
+  try {
+  console.log("before limiter");
+  await rateLimiter(redis, requestIp, 10, 60 * 60 * 24);
+  console.log("after limiter");
+
   const parsedData = dataSchema.safeParse(data);
 
   if (!parsedData.success) {
-    return redirect(requestOrigin + "/actions?error=invalid-data");
+    console.log(parsedData.error);
+    throw new Error(parsedData.error.message);
   }
 
   const image = parsedData.data.image;
 
   if (!data.image) {
-    return redirect(requestOrigin + "/actions?error=invalid-image");
+    console.log("No image provided");
+    throw new Error("No image provided");
   }
 
-  try {
     const createdImage = await createImage(image);
     const imageUrl = createdImage.url;
     const publicId = createdImage.public_id;
@@ -83,10 +91,12 @@ export async function createCourse({ data, requestOrigin }: CreateCourseProps) {
     revalidatePath("/courses");
     revalidatePath("/");
     revalidatePath("/actions");
+    console.log("before end");
 
     return JSON.parse(JSON.stringify(newCourse));
   } catch (error) {
-    redirect("/course-actions?error=course-create-failed");
+    console.log(error, "caught");
+    throw new Error("Failed to create course: " + error);
   }
 }
 
