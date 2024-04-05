@@ -15,7 +15,7 @@ export default function CustomDialog({
   isUpdate = false,
   children,
   ip,
-  userId
+  userId,
 }: {
   isUpdate?: boolean;
   children: React.ReactNode;

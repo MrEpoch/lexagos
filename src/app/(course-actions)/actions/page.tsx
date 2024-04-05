@@ -10,7 +10,6 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 
 export default async function Page() {
-
   // get Ip
 
   const fallBack = "0.0.0.0";
@@ -20,7 +19,7 @@ export default async function Page() {
   } else ip.split(",")[0];
 
   // get User Id
-  
+
   const { userId } = auth();
 
   if (!userId) throw redirect("/sign-in");
@@ -29,9 +28,10 @@ export default async function Page() {
     where: {
       clerkId: userId,
     },
-  })
+  });
 
   if (!user) throw redirect("/sign-in");
+  if (!user.isCourseCreator) throw redirect("/");
 
   return (
     <main className="min-h-screen py-16 pt-32 relative w-full h-full">
@@ -44,7 +44,13 @@ export default async function Page() {
         <h1 className="text-white font-bold text-3xl">Your courses</h1>
         <div className="flex flex-wrap gap-4 justify-center items-center w-full h-full">
           {dummyCardContent.map((item: any, index: number) => (
-            <CourseCard userId={user.id} ip={ip} isAction={true} key={index} content={item} />
+            <CourseCard
+              userId={user.id}
+              ip={ip}
+              isAction={true}
+              key={index}
+              content={item}
+            />
           ))}
         </div>
       </div>

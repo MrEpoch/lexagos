@@ -14,16 +14,16 @@ export async function rateLimiter(
     return {
       limit,
       remaining: limit - count,
-      success: false
-    }
+      success: false,
+    };
   }
 
   client.incr(key);
   client.expire(key, duration);
-  
-  return { 
+
+  return {
     limit,
     remaining: limit - (count + 1),
-    success: true
+    success: true,
   };
 }

@@ -35,7 +35,7 @@ export default function RootLayout({
         elements: { card: "bg-white dark:bg-secondary" },
       }}
     >
-      <html lang="cz">
+      <html suppressHydrationWarning lang="cz">
         <body className={inter.className}>
           <ThemeProvider attribute="class" enableSystem defaultTheme="dark">
             <div className="min-h-screen h-full w-full bg-black">

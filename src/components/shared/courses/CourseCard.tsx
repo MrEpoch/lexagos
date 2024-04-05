@@ -7,14 +7,30 @@ import { Button } from "@/components/ui/button";
 import { Pencil, Trash } from "lucide-react";
 import CustomDialog from "./CustomDialog";
 
-export default function CourseCard({ userId, content, isAction = false, ip }: any) {
+export default function CourseCard({
+  userId,
+  content,
+  isAction = false,
+  ip,
+}: {
+  userId: string,
+  content: {
+    imgSrc: string;
+    title: string;
+    type: string;
+    description: string;
+    link: string;
+  },
+  isAction?: boolean;
+  ip: string
+}) {
   return (
     <Link href={isAction ? "#" : content.link}>
       <Card className="hover:scale-105 transition-all duration-300 py-4 sm:w-[375px] w-[300px] max-[375px]:w-full">
         <CardContent className="flex flex-col gap-2">
           <Image
             src={content.imgSrc}
-            alt={content.name}
+            alt={content.title}
             width={500}
             height={500}
             className="w-full rounded-xl object-cover"

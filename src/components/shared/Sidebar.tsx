@@ -38,8 +38,8 @@ export default function Sidebar({
               {sidebarData
                 .slice(0, isLogged ? 4 : 6)
                 .concat(isLogged && isCreator ? sidebarData[6] : [])
-                .map((item) => (
-                  <li key={item.link}>
+                .map((item, i) => (
+                  <li key={i}>
                     <Link
                       href={item.link}
                       className="flex items-center space-x-2 hover:text-white hover:bg-primary py-3 px-4 rounded-lg gap-4 text-md font-semibold"

@@ -10,7 +10,7 @@ import Image from "next/image";
 export default function HomeAccordion() {
   return (
     <div className="min-h-screen w-full flex flex-col gap-4 items-center justify-around">
-      <div>
+      <div className="flex items-center flex-col">
         <h3 className="text-3xl sm:text-4xl text-center font-bold mb-8">
           Frequently asked questions
         </h3>
@@ -19,7 +19,7 @@ export default function HomeAccordion() {
           alt="Question mark"
           width={500}
           height={500}
-          className="shadow-2xl h-full object-cover transition-shadow duration-300 ease-in-out"
+    className="h-full w-64 self-center sm:w-[400px] object-cover  duration-300 ease-in-out"
         />
       </div>
       <Accordion type="single" collapsible className="w-full">

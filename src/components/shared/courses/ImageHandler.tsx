@@ -38,6 +38,7 @@ export default function ImageHandler({
         name="image"
         render={({ field }) => (
           <Input
+            name="image"
             type="file"
             className="w-full h-full"
             {...field}

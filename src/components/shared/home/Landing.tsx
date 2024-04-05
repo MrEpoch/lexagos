@@ -1,5 +1,6 @@
 import React from "react";
 import { GlobeLoaded } from "../World";
+import Link from "next/link";
 
 export default function Landing() {
   return (
@@ -14,7 +15,7 @@ export default function Landing() {
           help. We&apos;ve got you covered.
         </p>
         <div className="flex flex-col gap-6 space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
-          <a
+          <Link
             href="/courses"
             className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-primary hover:bg-primary/80 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
           >
@@ -34,13 +35,13 @@ export default function Landing() {
                 d="M1 5h12m0 0L9 1m4 4L9 9"
               />
             </svg>
-          </a>
-          <a
+          </Link>
+          <Link
             href="/about"
             className="inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
           >
             Learn more
-          </a>
+          </Link>
         </div>
       </div>
       <GlobeLoaded />

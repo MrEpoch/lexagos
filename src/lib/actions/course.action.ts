@@ -5,16 +5,16 @@ import cloudinary from "cloudinary";
 import { prisma } from "../db";
 import { z } from "zod";
 import DataURIParser from "datauri/parser";
-import { FILE_TYPES } from "../constant";
 import path from "path";
 import { rateLimiter } from "../rateLimiter";
 import { redis } from "../redis";
+import { redirect } from "next/navigation";
+import { FILE_TYPES } from "../constant";
 
 export interface CourseProps {
   name: string;
   description: string;
   price: number;
-  image: File;
   userId: string;
 }
 
@@ -33,39 +33,49 @@ const dataSchema = z.object({
     .min(3, { message: "Must be 3 or more characters long" })
     .max(200, { message: "Must be 200 or fewer characters long" }),
   price: z.number(),
-  image: z
-    .custom<File>((val) => val instanceof File, { message: "Must be an image" })
-    .refine((file) => FILE_TYPES.includes(file.type), {
-      message: "Must be an image",
-    }),
   userId: z
     .string()
     .uuid()
     .min(1, { message: "Must be 1 or more characters long" }),
 });
 
-export async function createCourse({ data, requestIp }: CreateCourseProps) {
-  'use server';
+const imageValidation = z
+  .any()
+  .refine((img: File) => img?.size <= 5 * 1024 * 1024, `Max image size is 5MB.`)
+  .refine(
+    (img: File) => FILE_TYPES.includes(img?.type),
+    "Only .jpg, .jpeg, .png and .webp formats are supported.",
+  );
+
+
+export async function createCourse(
+  { data, requestIp }: CreateCourseProps,
+  image: FormData,
+) {
   try {
-  console.log("before limiter");
-  await rateLimiter(redis, requestIp, 10, 60 * 60 * 24);
-  console.log("after limiter");
 
-  const parsedData = dataSchema.safeParse(data);
+    const ipCheck = await rateLimiter(redis, requestIp, 10, 60 * 60 * 12);
 
-  if (!parsedData.success) {
-    console.log(parsedData.error);
-    throw new Error(parsedData.error.message);
-  }
+    if (!ipCheck.success) {
+      redirect("/?error=too-many-requests");
+    }
 
-  const image = parsedData.data.image;
+    const parsedData = await dataSchema.safeParseAsync(data);
 
-  if (!data.image) {
-    console.log("No image provided");
-    throw new Error("No image provided");
-  }
+    const validatedImage = await imageValidation.safeParseAsync(
+      image.get("image"),
+    );
 
-    const createdImage = await createImage(image);
+    if (!validatedImage.success) {
+      redirect("/actions?error=invalid-image");
+    }
+
+    if (!parsedData.success) {
+      console.log(parsedData.error);
+      throw new Error(parsedData.error.message);
+    }
+
+    const createdImage = await createImage(validatedImage.data);
     const imageUrl = createdImage.url;
     const publicId = createdImage.public_id;
     const imageSignature = createdImage.signature;
@@ -91,7 +101,6 @@ export async function createCourse({ data, requestIp }: CreateCourseProps) {
     revalidatePath("/courses");
     revalidatePath("/");
     revalidatePath("/actions");
-    console.log("before end");
 
     return JSON.parse(JSON.stringify(newCourse));
   } catch (error) {
@@ -100,21 +109,21 @@ export async function createCourse({ data, requestIp }: CreateCourseProps) {
   }
 }
 
-export async function createImage(img: any) {
+export async function createImage(imgBase64: any) {
   try {
     cloudinary.v2.config({
       cloud_name: process.env.CLOUDINARY_NAME,
       api_key: process.env.CLOUDINARY_API_KEY,
       api_secret: process.env.CLOUDINARY_API_SECRET,
     });
-
     const parser = new DataURIParser();
-    const base64Image = parser.format(
-      path.extname(img.name).toString(),
-      await img.arrayBuffer(),
+    const parsed = parser.format(
+      path.extname(imgBase64.name).toString(),
+      await imgBase64.arrayBuffer(),
     );
+
     const uploadedImageResponse = await cloudinary.v2.uploader.upload(
-      base64Image.content as string,
+      parsed.content as string,
       { resource_type: "image" },
     );
     return uploadedImageResponse;

@@ -10,15 +10,16 @@ export default function ErrorHandler() {
   const { toast } = useToast();
 
   useEffect(() => {
-    if (searchParams.get("error")) {
+    if (searchParams.get("error") && toast) {
       const error =
         errorKinds[searchParams.get("error") as keyof typeof errorKinds];
       toast({
-        title: error.title || "Unknown Error",
-        description: error.description || "Please try again later.",
+        title: "Unknown Error",
+        description: "Please try again later.",
+        variant: "destructive",
       });
     }
-  }, []);
+  }, [searchParams, toast]);
 
   return <></>;
 }

@@ -7,7 +7,7 @@ import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import CustomField from "../CustomField";
 import { Textarea } from "@/components/ui/textarea";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import ImageHandler from "./ImageHandler";
 import { CourseProps, createCourse } from "@/lib/actions/course.action";
@@ -27,10 +27,17 @@ export const formSchema = z.object({
     .string()
     .min(1, { message: "Must be 1 or more characters long" })
     .max(4, { message: "Must be 4 or fewer characters long" }),
-  image: 
-    z.any(),
+  image: z.any(),
   isSaved: z.boolean().optional(),
 });
+
+const imageValidation = z
+  .any()
+  .refine((img: File) => img?.size <= 5 * 1024 * 1024, `Max image size is 5MB.`)
+  .refine(
+    (img: File) => FILE_TYPES.includes(img?.type),
+    "Only .jpg, .jpeg, .png and .webp formats are supported.",
+  );
 
 export default function ActionForm({
   title,
@@ -39,7 +46,7 @@ export default function ActionForm({
   isUpdate = false,
   imageSaved,
   userIp,
-  userId
+  userId,
 }: {
   title?: string;
   description?: string;
@@ -47,9 +54,8 @@ export default function ActionForm({
   isUpdate: boolean;
   imageSaved?: string;
   userIp: string;
-  userId: string
+  userId: string;
 }) {
-
   const [image, setImage] = useState<File | null>(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -67,62 +73,58 @@ export default function ActionForm({
         },
   });
   const [submitting, setSubmitting] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const router = useRouter();
   const { toast } = useToast();
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
+    form.trigger();
     setSubmitting(true);
-    console.log(data);
 
-    if (!image) {
+    const validatedImage = await imageValidation.safeParseAsync(image);
+
+    if (!validatedImage.success) {
       toast({
         title: "Error",
-        description: "Please select an image",
+        description: "Invalid image input",
         variant: "destructive",
-      })
+      });
       setSubmitting(false);
       return;
     }
 
-    if (!FILE_TYPES.includes(image.type) || image.size > 5 * 1024 * 1024) {
-      toast({
-        title: "Error",
-        description: "Please select a valid image",
-        variant: "destructive",
-      })
-      setSubmitting(false);
-      return;
-    }
+    const formData = new FormData();
+    formData.append("image", validatedImage.data);
 
     const submitData = {
       name: data.title as string,
       description: data.description as string,
       price: parseInt(data.price) as number,
-      image: image as File,
       userId: userId as string,
     } as CourseProps;
-    console.log(userIp, submitData);
-    console.log(form.formState.errors, form.formState.isSubmitted);
 
-      if (isUpdate) {
-        console.log("update");
-      } else {
-        console.log("create");
-        // const course = await createCourse({ data: submitData, requestIp: userIp });
-        // if (course) {
-          //  form.reset();
-          // router.push(`/courses`);
-          //}
+    if (isUpdate) {
+      console.log("update");
+    } else {
+      const course = await createCourse(
+        { data: submitData, requestIp: userIp },
+        formData,
+      );
+      if (course) {
+        form.reset();
+        router.push(`/courses`);
       }
-    console.log("after create");
-
+    }
     setSubmitting(false);
     return;
   }
 
   useEffect(() => {
-    if (Object.keys(form.formState.errors).length && form.formState.isSubmitted) {
+    if (
+      Object.keys(form.formState.errors).length &&
+      form.formState.isSubmitted
+    ) {
       console.log(form.formState.errors);
       toast({
         title: "Wrong values",
@@ -134,7 +136,11 @@ export default function ActionForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
+      <form
+        encType="multipart/form-data"
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-8 w-full"
+      >
         <CustomField
           control={form.control}
           name="title"
