@@ -71,7 +71,7 @@ export const FloatingNav = ({
           )}
         >
           <Image
-            src={logoInfo.logo}
+            src={logoInfo.logo as string}
             alt="Logo"
             className="h-8 w-8"
             width={32}

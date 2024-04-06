@@ -30,7 +30,7 @@ export default function VideoPlayer({
       >
         <Image
           className="rounded-3xl shadow-2xl h-full object-cover transition-shadow duration-300 ease-in-out"
-          src={thumb}
+          src={thumb as string}
           width={thumbWidth}
           height={thumbHeight}
           priority
@@ -73,7 +73,7 @@ export default function VideoPlayer({
             <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
               <video width={videoWidth} height={videoHeight} loop controls>
                 <track kind="captions" />
-                <source src={video} type="video/mp4" />
+                <source src={video as string} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             </div>

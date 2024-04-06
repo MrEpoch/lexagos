@@ -24,7 +24,7 @@ export default function CourseCard({
       <Card className="hover:scale-105 transition-all duration-300 py-4 sm:w-[375px] w-[300px] max-[375px]:w-full">
         <CardContent className="flex flex-col gap-2 h-full">
           <Image
-            src={content.imageUrl}
+            src={content.imageUrl as string}
             alt={content.name}
             width={500}
             height={500}

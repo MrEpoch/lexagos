@@ -53,7 +53,7 @@ export const HoverEffect = ({
           </AnimatePresence>
           <Card>
             <CardTitle>{item.title}</CardTitle>
-            <CardImage src={item.imgSrc} alt={item.title} />
+            <CardImage src={item.imgSrc as string} alt={item.title} />
             <CardDescription>{item.description}</CardDescription>
           </Card>
         </Link>
@@ -107,7 +107,7 @@ export const CardImage = ({
 }) => {
   return (
     <Image
-      src={src}
+      src={src as string}
       className={cn("w-full h-full object-cover rounded-3xl", className)}
       alt={alt}
       width={500}
