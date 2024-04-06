@@ -13,7 +13,7 @@ export default async function Page() {
         products={courses.map((item) => ({
           title: item.name,
           link: "/courses/course/" + item.id,
-          thumbnail: item.imageUrl,
+          thumbnail: item.imageUrl as string,
         }))}
       />
       <div className="min-h-screen max-w-screen-xl flex flex-col gap-1 h-full mx-auto w-full px-4 py-16 sm:px-6 lg:px-8 z-10">
