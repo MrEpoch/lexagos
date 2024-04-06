@@ -131,3 +131,24 @@ export async function createImage(imgBase64: any) {
     throw new Error("Failed to create image: " + error);
   }
 }
+
+export async function getCourses(limit=12, page=1, searchQuery="") {
+  try {
+    const courses = await prisma.course.findMany({
+      where: {
+        name: {
+          contains: searchQuery,
+          mode: "insensitive",
+        },
+      },
+      skip: (page - 1) * limit,
+      take: limit,
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    return courses
+  } catch (e) {
+    console.log(e)
+  }
+}

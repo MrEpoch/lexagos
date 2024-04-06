@@ -113,7 +113,8 @@ export default function ActionForm({
       );
       if (course) {
         form.reset();
-        router.push(`/courses`);
+        router.push(`/actions`);
+        window.location.reload();
       }
     }
     setSubmitting(false);

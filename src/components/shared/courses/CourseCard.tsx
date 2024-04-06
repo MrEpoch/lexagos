@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Pencil, Trash } from "lucide-react";
 import CustomDialog from "./CustomDialog";
+import { Course } from "@prisma/client";
 
 export default function CourseCard({
   userId,
@@ -13,35 +14,29 @@ export default function CourseCard({
   isAction = false,
   ip,
 }: {
-  userId: string,
-  content: {
-    imgSrc: string;
-    title: string;
-    type: string;
-    description: string;
-    link: string;
-  },
+  userId?: string;
+  content: Course;
   isAction?: boolean;
-  ip: string
+  ip?: string
 }) {
   return (
-    <Link href={isAction ? "#" : content.link}>
+    <Link href={isAction ? "#" : `/courses/course/${content.id}`}>
       <Card className="hover:scale-105 transition-all duration-300 py-4 sm:w-[375px] w-[300px] max-[375px]:w-full">
-        <CardContent className="flex flex-col gap-2">
+        <CardContent className="flex flex-col gap-2 h-full">
           <Image
-            src={content.imgSrc}
-            alt={content.title}
+            src={content.imageUrl}
+            alt={content.name}
             width={500}
             height={500}
-            className="w-full rounded-xl object-cover"
+            className="w-full h-72 rounded-xl object-cover"
           />
-          <h1 className="text-white font-bold text-lg">{content.title}</h1>
-          <h3 className="font-medium text-gray-600">{content.type}</h3>
+          <h1 className="text-white font-bold text-lg">{content.name}</h1>
+          <h3 className="font-medium text-gray-600">Overview</h3>
           <p className="text-gray-400">
             {content.description.slice(0, 70).concat("...")}
           </p>
         </CardContent>
-        {isAction && (
+        {isAction && userId && ip && (
           <CardFooter className="flex justify-between">
             <form action="/update" method="get">
               <CustomDialog userId={userId} ip={ip} isUpdate={true}>

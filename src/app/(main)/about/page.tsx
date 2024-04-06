@@ -1,16 +1,19 @@
 import { HeroParallax } from "@/components/ui/hero-parallax";
-import { dummyCardContent } from "@/lib/constant";
+import { getCourses } from "@/lib/actions/course.action";
 import Image from "next/image";
 import React from "react";
 
-export default function Page() {
+export default async function Page() {
+
+  const courses = await getCourses(16, 1, "") || [];
+
   return (
     <div className="py-8">
       <HeroParallax
-        products={dummyCardContent.map((item) => ({
-          title: item.title,
-          link: "/courses",
-          thumbnail: item.imgSrc,
+        products={courses.map((item) => ({
+          title: item.name,
+          link: "/courses/course/" + item.id,
+          thumbnail: item.imageUrl,
         }))}
       />
       <div className="min-h-screen max-w-screen-xl flex flex-col gap-1 h-full mx-auto w-full px-4 py-16 sm:px-6 lg:px-8 z-10">

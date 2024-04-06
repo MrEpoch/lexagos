@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/pagination";
 import { useRouter, useSearchParams } from "next/navigation";
 import { formUrlQuery } from "@/lib/utils";
+import { Course } from "@prisma/client";
 
 export default function CoursesContent({
   totalPages,
@@ -18,7 +19,7 @@ export default function CoursesContent({
 }: {
   totalPages: number;
   page: number;
-  courses: any[];
+  courses: Course[];
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -38,7 +39,7 @@ export default function CoursesContent({
   return (
     <div>
       <div className="flex flex-wrap gap-4 justify-center items-center w-full h-full">
-        {courses.map((item: any, index: number) => (
+        {courses.map((item: Course, index: number) => (
           <CourseCard key={index} content={item} />
         ))}
       </div>

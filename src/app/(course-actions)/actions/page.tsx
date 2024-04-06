@@ -8,6 +8,8 @@ import { headers } from "next/headers";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
+import { getCourses } from "@/lib/actions/course.action";
+import { Course } from "@prisma/client";
 
 export default async function Page() {
   // get Ip
@@ -32,6 +34,7 @@ export default async function Page() {
 
   if (!user) throw redirect("/sign-in");
   if (!user.isCourseCreator) throw redirect("/");
+  const courses = await getCourses() || [];
 
   return (
     <main className="min-h-screen py-16 pt-32 relative w-full h-full">
@@ -43,13 +46,13 @@ export default async function Page() {
         </CustomDialog>
         <h1 className="text-white font-bold text-3xl">Your courses</h1>
         <div className="flex flex-wrap gap-4 justify-center items-center w-full h-full">
-          {dummyCardContent.map((item: any, index: number) => (
+          {courses.map((course: Course, index: number) => (
             <CourseCard
               userId={user.id}
               ip={ip}
               isAction={true}
               key={index}
-              content={item}
+              content={course}
             />
           ))}
         </div>

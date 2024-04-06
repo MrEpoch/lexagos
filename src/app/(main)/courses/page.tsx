@@ -1,10 +1,12 @@
 import CoursesContent from "@/components/shared/courses/CoursesContent";
-import { dummyCardContent } from "@/lib/constant";
+import { getCourses } from "@/lib/actions/course.action";
 import React from "react";
 
 export default async function Page({ searchParams }: { searchParams: any }) {
   const page = Number(searchParams?.page) || 1;
   const searchQuery = (searchParams?.query as string) || "";
+
+  const courses = await getCourses() || [];
 
   return (
     <main className="w-full py-16 md:py-32 h-full min-h-screen">
@@ -12,7 +14,7 @@ export default async function Page({ searchParams }: { searchParams: any }) {
         <CoursesContent
           page={page}
           totalPages={10}
-          courses={dummyCardContent}
+          courses={courses}
         />
       </div>
     </main>
