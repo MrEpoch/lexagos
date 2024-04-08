@@ -30,10 +30,10 @@ export default function CourseCard({
             height={500}
             className="w-full h-72 rounded-xl object-cover"
           />
-          <h1 className="text-white font-bold text-lg">{content.name}</h1>
+          <h1 className="text-white font-bold text-lg">{content.name.length > 30 ? content.name.slice(0, 30).concat("...") : content.name}</h1>
           <h3 className="font-medium text-gray-600">Overview</h3>
           <p className="text-gray-400">
-            {content.description.slice(0, 70).concat("...")}
+            {content.description.length > 100 ? content.description.slice(0, 100).concat("...") : content.description}
           </p>
         </CardContent>
         {isAction && userId && ip && (

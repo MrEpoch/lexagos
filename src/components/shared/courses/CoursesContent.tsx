@@ -16,10 +16,16 @@ export default function CoursesContent({
   totalPages,
   page,
   courses,
+  isAction = false,
+  ip,
+  id
 }: {
   totalPages: number;
   page: number;
   courses: Course[];
+  isAction?: boolean;
+  ip?: string;
+  id?: string
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -34,13 +40,14 @@ export default function CoursesContent({
     });
 
     router.push(newUrl, { scroll: false });
+    window.location.reload();
   }
 
   return (
-    <div>
-      <div className="flex flex-wrap gap-4 justify-center items-center w-full h-full">
+    <div className="w-full">
+      <div className="min-h-screen flex flex-wrap gap-4 justify-center items-center w-full h-full">
         {courses.map((item: Course, index: number) => (
-          <CourseCard key={index} content={item} />
+          <CourseCard isAction={isAction} userId={id} ip={ip} key={index} content={item} />
         ))}
       </div>
       {totalPages > 1 && (

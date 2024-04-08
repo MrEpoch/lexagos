@@ -9,6 +9,7 @@ export default function CookieConsent({
   demo = false,
   onAcceptCallback = () => {
     localStorage.setItem("showMap", "true");
+    window.location.reload();
   },
   onDeclineCallback = () => {
     localStorage.setItem("showMap", "false");

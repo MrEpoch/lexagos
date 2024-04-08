@@ -2,6 +2,9 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "../db";
+import { z } from "zod";
+import { redirect } from "next/navigation";
+import { auth } from "@clerk/nextjs/server";
 
 interface UserCreate {
   email: string;
@@ -88,5 +91,49 @@ export async function deleteUser(clerkId: string) {
     return deletedUser ? JSON.parse(JSON.stringify(deletedUser)) : null;
   } catch (e) {
     throw new Error("Failed to delete user: " + e);
+  }
+}
+
+export async function courseCreatorAdd(userEmail: string) {
+  try {
+    const userRequesterId = auth();
+    if (!userRequesterId || !userRequesterId.userId) throw new Error("User not found");
+    const userRequester = await prisma.user.findUnique({
+      where: {
+        clerkId: userRequesterId.userId
+      }
+    })
+
+    if (!userRequester) throw new Error("User not found")
+    if (!userRequester.isCourseCreator) throw new Error("User is not a course creator")
+
+    const zodMail = z.string().email();
+    const parsedMail = zodMail.safeParse(userEmail);
+
+    if (!parsedMail.success) {
+      throw new Error("Invalid email");
+    }
+
+    const user = await prisma.user.findUnique({
+      where: {
+        email: userEmail,
+      }
+    })
+
+    if (!user) throw new Error("User not found")
+
+    if (!user.isCourseCreator) {
+      await prisma.user.update({
+        where: {
+          clerkId: user.clerkId
+        },
+        data: {
+          isCourseCreator: true
+        }
+      })
+    }
+
+  } catch (e) {
+    redirect("/actions?error=invalid-email")
   }
 }

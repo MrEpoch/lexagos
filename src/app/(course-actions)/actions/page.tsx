@@ -8,10 +8,11 @@ import { headers } from "next/headers";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
-import { getCourses } from "@/lib/actions/course.action";
+import { getCourses, getPageCount } from "@/lib/actions/course.action";
 import { Course } from "@prisma/client";
+import CoursesContent from "@/components/shared/courses/CoursesContent";
 
-export default async function Page() {
+export default async function Page({ searchParams }: { searchParams: any }) {
   // get Ip
 
   const fallBack = "0.0.0.0";
@@ -34,7 +35,9 @@ export default async function Page() {
 
   if (!user) throw redirect("/sign-in");
   if (!user.isCourseCreator) throw redirect("/");
-  const courses = await getCourses() || [];
+  const page = Number(searchParams?.page) || 1;
+  const courses = await getCourses(12, page) || [];
+  const pageCount = await getPageCount(12) || 1;
 
   return (
     <main className="min-h-screen py-16 pt-32 relative w-full h-full">
@@ -46,15 +49,7 @@ export default async function Page() {
         </CustomDialog>
         <h1 className="text-white font-bold text-3xl">Your courses</h1>
         <div className="flex flex-wrap gap-4 justify-center items-center w-full h-full">
-          {courses.map((course: Course, index: number) => (
-            <CourseCard
-              userId={user.id}
-              ip={ip}
-              isAction={true}
-              key={index}
-              content={course}
-            />
-          ))}
+          <CoursesContent page={page} totalPages={pageCount} courses={courses} ip={ip} id={user.id} isAction={true} />
         </div>
       </div>
     </main>

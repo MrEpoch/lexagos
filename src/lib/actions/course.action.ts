@@ -132,6 +132,49 @@ export async function createImage(imgBase64: any) {
   }
 }
 
+const zodId = z.string().uuid();
+
+export async function deleteCourse(id: string) {
+  try {
+    const parsedId = zodId.safeParse(id);
+    if (!parsedId.success) {
+      throw new Error("Invalid id");
+    }
+
+    const deletedCourse = await prisma.course.delete({
+      where: {
+        id,
+      },
+    });
+
+    if (!deletedCourse) throw new Error("failed-to-delete");
+
+    return JSON.parse(JSON.stringify(deletedCourse));
+  } catch (error) {
+    redirect("/actions?error=invalid-course");
+  }
+}
+
+export async function getCourseById(id: string) {
+  try {
+    const parsedId = zodId.safeParse(id);
+    
+    if (!parsedId.success) {
+      throw new Error("Invalid id");
+    }
+
+    const course = await prisma.course.findUnique({
+      where: {
+        id,
+      },
+    });
+    return { data: course, error: false };
+  } catch (error) {
+    console.log(error);
+    return { data: null, error: true };
+  }
+}
+
 export async function getCourses(limit=12, page=1, searchQuery="") {
   try {
     const courses = await prisma.course.findMany({
@@ -148,6 +191,22 @@ export async function getCourses(limit=12, page=1, searchQuery="") {
       },
     });
     return courses
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export async function getPageCount(pageSize=12, searchQuery="") {
+  try {
+    const count = await prisma.course.count({
+      where: {
+        name: {
+          contains: searchQuery,
+          mode: "insensitive",
+        },
+      },
+    });
+    return Math.ceil(count / pageSize)
   } catch (e) {
     console.log(e)
   }
