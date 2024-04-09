@@ -15,12 +15,12 @@ export default function CustomDialog({
   isUpdate = false,
   children,
   ip,
-  userId,
+  data
 }: {
   isUpdate?: boolean;
   children: React.ReactNode;
   ip: string;
-  userId: string;
+  data?: { title: string; description: string; price: number; imageUrl: string; id: string }
 }) {
   return (
     <Dialog>
@@ -33,7 +33,7 @@ export default function CustomDialog({
             </DialogTitle>
             <DialogDescription>Fill in course information</DialogDescription>
           </DialogHeader>
-          <ActionForm userId={userId} userIp={ip} isUpdate={isUpdate} />
+          <ActionForm data={data} userIp={ip} isUpdate={isUpdate} />
         </ScrollArea>
       </DialogContent>
     </Dialog>

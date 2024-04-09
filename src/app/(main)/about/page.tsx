@@ -4,8 +4,7 @@ import Image from "next/image";
 import React from "react";
 
 export default async function Page() {
-
-  const courses = await getCourses(16, 1, "") || [];
+  const courses = (await getCourses(16, 1, "")) || [];
 
   return (
     <div className="py-8">

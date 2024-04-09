@@ -10,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useEffect, useState, useTransition } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import ImageHandler from "./ImageHandler";
-import { CourseProps, createCourse } from "@/lib/actions/course.action";
+import { CourseProps, createCourse, updateCourse } from "@/lib/actions/course.action";
 import { useRouter } from "next/navigation";
 import { FILE_TYPES } from "@/lib/constant";
 
@@ -28,7 +28,6 @@ export const formSchema = z.object({
     .min(1, { message: "Must be 1 or more characters long" })
     .max(4, { message: "Must be 4 or fewer characters long" }),
   image: z.any(),
-  isSaved: z.boolean().optional(),
 });
 
 const imageValidation = z
@@ -40,31 +39,28 @@ const imageValidation = z
   );
 
 export default function ActionForm({
-  title,
-  description,
-  price,
+  data,
   isUpdate = false,
-  imageSaved,
   userIp,
-  userId,
 }: {
-  title?: string;
-  description?: string;
-  price?: string;
+  data?: {
+    title: string;
+    description: string;
+    price: number;
+    imageUrl: string;
+    id: string;
+  }
   isUpdate: boolean;
-  imageSaved?: string;
   userIp: string;
-  userId: string;
 }) {
   const [image, setImage] = useState<File | null>(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: imageSaved
+    defaultValues: (isUpdate && data)
       ? {
-          title: title,
-          description: description,
-          price: price,
-          isSaved: true,
+          title: data.title,
+          description: data.description,
+          price: String(data.price),
         }
       : {
           title: "",
@@ -72,6 +68,9 @@ export default function ActionForm({
           price: "",
         },
   });
+
+  const courseId = data?.id;
+
   const [submitting, setSubmitting] = useState(false);
   const [isPending, startTransition] = useTransition();
 
@@ -101,11 +100,28 @@ export default function ActionForm({
       name: data.title as string,
       description: data.description as string,
       price: parseInt(data.price) as number,
-      userId: userId as string,
     } as CourseProps;
 
     if (isUpdate) {
-      console.log("update");
+
+      if (!courseId) {
+        toast({
+          title: "Error",
+          description: "Course not found",
+          variant: "destructive",
+        });
+        setSubmitting(false);
+        return;
+      }
+      const course = await updateCourse(
+        { data: submitData, requestIp: userIp, id: courseId as string },
+      )
+
+      if (course) {
+        form.reset();
+        router.push(`/actions`);
+        window.location.reload();
+      }
     } else {
       const course = await createCourse(
         { data: submitData, requestIp: userIp },
@@ -163,7 +179,7 @@ export default function ActionForm({
           )}
         />
         <ImageHandler
-          savedImage={imageSaved}
+          savedImage={data?.imageUrl}
           form={form}
           image={image}
           setImage={setImage}

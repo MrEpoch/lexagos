@@ -19,7 +19,7 @@ export default function HomeAccordion() {
           alt="Question mark"
           width={500}
           height={500}
-    className="h-full w-64 self-center sm:w-[400px] object-cover  duration-300 ease-in-out"
+          className="h-full w-64 self-center sm:w-[400px] object-cover  duration-300 ease-in-out"
         />
       </div>
       <Accordion type="single" collapsible className="w-full">

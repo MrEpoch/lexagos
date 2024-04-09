@@ -15,30 +15,15 @@ export default function ImageHandler({
   form,
   image,
   setImage,
-  savedImage,
+  savedImage
 }: ImageHandlerProps) {
   return (
     <>
-      {savedImage && !image && (
-        <CustomField
-          control={form.control}
-          name="isSaved"
-          render={({ field }) => (
-            <Input
-              type="hidden"
-              value={true}
-              className="w-full h-full"
-              {...field}
-            />
-          )}
-        />
-      )}
       <CustomField
         control={form.control}
         name="image"
         render={({ field }) => (
           <Input
-            name="image"
             type="file"
             className="w-full h-full"
             {...field}
@@ -49,7 +34,7 @@ export default function ImageHandler({
         )}
       />
       <div className="w-full flex justify-center">
-        {image || savedImage ? (
+        {(image || savedImage) ? (
           <Image
             src={image ? URL.createObjectURL(image) : (savedImage as string)}
             alt="uploaded image"

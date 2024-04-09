@@ -97,15 +97,17 @@ export async function deleteUser(clerkId: string) {
 export async function courseCreatorAdd(userEmail: string) {
   try {
     const userRequesterId = auth();
-    if (!userRequesterId || !userRequesterId.userId) throw new Error("User not found");
+    if (!userRequesterId || !userRequesterId.userId)
+      throw new Error("User not found");
     const userRequester = await prisma.user.findUnique({
       where: {
-        clerkId: userRequesterId.userId
-      }
-    })
+        clerkId: userRequesterId.userId,
+      },
+    });
 
-    if (!userRequester) throw new Error("User not found")
-    if (!userRequester.isCourseCreator) throw new Error("User is not a course creator")
+    if (!userRequester) throw new Error("User not found");
+    if (!userRequester.isCourseCreator)
+      throw new Error("User is not a course creator");
 
     const zodMail = z.string().email();
     const parsedMail = zodMail.safeParse(userEmail);
@@ -117,23 +119,22 @@ export async function courseCreatorAdd(userEmail: string) {
     const user = await prisma.user.findUnique({
       where: {
         email: userEmail,
-      }
-    })
+      },
+    });
 
-    if (!user) throw new Error("User not found")
+    if (!user) throw new Error("User not found");
 
     if (!user.isCourseCreator) {
       await prisma.user.update({
         where: {
-          clerkId: user.clerkId
+          clerkId: user.clerkId,
         },
         data: {
-          isCourseCreator: true
-        }
-      })
+          isCourseCreator: true,
+        },
+      });
     }
-
   } catch (e) {
-    redirect("/actions?error=invalid-email")
+    redirect("/actions?error=invalid-email");
   }
 }

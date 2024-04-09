@@ -10,17 +10,23 @@ import { rateLimiter } from "../rateLimiter";
 import { redis } from "../redis";
 import { redirect } from "next/navigation";
 import { FILE_TYPES } from "../constant";
+import { auth } from "@clerk/nextjs/server";
 
 export interface CourseProps {
   name: string;
   description: string;
   price: number;
-  userId: string;
 }
 
 interface CreateCourseProps {
   data: CourseProps;
   requestIp: string;
+}
+
+interface UpdateCourseProps {
+  data: CourseProps;
+  requestIp: string;
+  id: string;
 }
 
 const dataSchema = z.object({
@@ -33,10 +39,6 @@ const dataSchema = z.object({
     .min(3, { message: "Must be 3 or more characters long" })
     .max(200, { message: "Must be 200 or fewer characters long" }),
   price: z.number(),
-  userId: z
-    .string()
-    .uuid()
-    .min(1, { message: "Must be 1 or more characters long" }),
 });
 
 const imageValidation = z
@@ -47,17 +49,30 @@ const imageValidation = z
     "Only .jpg, .jpeg, .png and .webp formats are supported.",
   );
 
-
 export async function createCourse(
   { data, requestIp }: CreateCourseProps,
   image: FormData,
 ) {
   try {
-
     const ipCheck = await rateLimiter(redis, requestIp, 10, 60 * 60 * 12);
-
     if (!ipCheck.success) {
-      redirect("/?error=too-many-requests");
+      throw new Error("too-many-requests");
+    }
+
+    const userId = auth();
+
+    if (!userId || !userId.userId) {
+      throw new Error("not-logged");
+    }
+
+    const user = await prisma.user.findUnique({
+      where: {
+        clerkId: userId.userId,
+      },
+    });
+
+    if (!user || !user.isCourseCreator) {
+      throw new Error("not-course-creator");
     }
 
     const parsedData = await dataSchema.safeParseAsync(data);
@@ -67,7 +82,7 @@ export async function createCourse(
     );
 
     if (!validatedImage.success) {
-      redirect("/actions?error=invalid-image");
+      throw new Error("invalid-image");
     }
 
     if (!parsedData.success) {
@@ -90,7 +105,7 @@ export async function createCourse(
         imageSignature,
         courseCreator: {
           connect: {
-            id: parsedData.data.userId,
+            id: user.id,
           },
         },
       },
@@ -101,11 +116,21 @@ export async function createCourse(
     revalidatePath("/courses");
     revalidatePath("/");
     revalidatePath("/actions");
+    revalidatePath("/about");
 
     return JSON.parse(JSON.stringify(newCourse));
-  } catch (error) {
+  } catch (error: any) {
     console.log(error, "caught");
-    throw new Error("Failed to create course: " + error);
+    if (error?.message === "too-many-requests") {
+      redirect("/actions?error=too-many-requests");
+    } else if (error?.message === "invalid-image") {
+      redirect("/actions?error=invalid-image");
+    } else if (error?.message === "not-logged") {
+      redirect("/actions?error=not-logged");
+    } else if (error?.message === "not-course-creator") {
+      redirect("/actions?error=not-course-creator");
+    }
+    redirect("/actions?error=failed-to-create");
   }
 }
 
@@ -132,10 +157,155 @@ export async function createImage(imgBase64: any) {
   }
 }
 
+export async function deleteImage(publicId: string) {
+  try {
+    cloudinary.v2.config({
+      cloud_name: process.env.CLOUDINARY_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET,
+    });
+    await cloudinary.v2.uploader.destroy(publicId, { resource_type: "image" });
+  } catch (error) {
+    throw new Error("Failed to delete image: " + error);
+  }
+}
+
 const zodId = z.string().uuid();
+
+export async function updateCourse(
+  { data, requestIp, id }: UpdateCourseProps,
+  image?: FormData,
+) {
+  try {
+    const ipCheck = await rateLimiter(redis, requestIp, 10, 60 * 60 * 12);
+    if (!ipCheck.success) {
+      throw new Error("too-many-requests");
+    }
+
+    const clerkUser = auth();
+
+    if (!clerkUser || !clerkUser.userId) {
+      throw new Error("user-not-found");
+    }
+
+    const user = await prisma.user.findUnique({
+      where: {
+        clerkId: clerkUser.userId,
+      },
+    });
+
+    if (!user || !user.isCourseCreator) {
+      throw new Error("user-not-course-creator");
+    }
+
+    const parsedData = await dataSchema.safeParseAsync(data);
+
+    if (!parsedData.success) {
+      console.log(parsedData.error);
+      throw new Error(parsedData.error.message);
+    }
+
+    const parsedId = zodId.safeParse(id);
+    if (!parsedId.success) {
+      throw new Error("invalid-id");
+    }
+
+    if (image) {
+      const validatedImage = await imageValidation.safeParseAsync(
+        image.get("image"),
+      );
+      if (!validatedImage.success) {
+        throw new Error("invalid-image");
+      }
+      const createdImage = await createImage(validatedImage.data);
+      const imageUrl = createdImage.url;
+      const publicId = createdImage.public_id;
+      const imageSignature = createdImage.signature;
+
+      const course = await prisma.course.findUnique({
+        where: {
+          id,
+        },
+      })
+
+      if (!course) {
+        throw new Error("course-not-found");
+      }
+
+      await deleteImage(course.publicId);
+
+      await prisma.course.update({
+        where: {
+          id,
+        },
+        data: {
+          name: parsedData.data.name,
+          description: parsedData.data.description,
+          price: parsedData.data.price,
+          imageUrl,
+          publicId,
+          imageSignature,
+        },
+      });
+
+      revalidatePath("/courses");
+      revalidatePath("/");
+      revalidatePath("/actions");
+
+      return JSON.parse(JSON.stringify(parsedData.data));
+    } else {
+      await prisma.course.update({
+        where: {
+          id,
+        },
+        data: {
+          name: parsedData.data.name,
+          description: parsedData.data.description,
+          price: parsedData.data.price,
+        },
+      });
+
+      revalidatePath("/courses");
+      revalidatePath("/");
+      revalidatePath("/actions");
+      revalidatePath("/about");
+
+      return JSON.parse(JSON.stringify(parsedData.data));
+    }
+  } catch (e: any) {
+    console.log(e);
+    if (e?.message === "too-many-requests") {
+      redirect("/actions?error=too-many-requests");
+    } else if (e?.message === "invalid-image") {
+      redirect("/actions?error=invalid-image");
+    } else if (e?.message === "user-not-found") {
+      redirect("/actions?error=user-not-found");
+    } else if (e?.message === "user-not-course-creator") {
+      redirect("/actions?error=user-not-course-creator");
+    } else if (e?.message === "invalid-id") {
+      redirect("/actions?error=invalid-id");
+    }
+  }
+}
 
 export async function deleteCourse(id: string) {
   try {
+    const clerkUser = auth();
+
+    if (!clerkUser || !clerkUser.userId) {
+      throw new Error("User not found");
+    }
+
+    const user = await prisma.user.findUnique({
+      where: {
+        clerkId: clerkUser.userId,
+      },
+    });
+
+    if (!user || !user.isCourseCreator) {
+      throw new Error("User is not a course creator");
+    }
+
     const parsedId = zodId.safeParse(id);
     if (!parsedId.success) {
       throw new Error("Invalid id");
@@ -144,10 +314,18 @@ export async function deleteCourse(id: string) {
     const deletedCourse = await prisma.course.delete({
       where: {
         id,
+        courseCreatorId: user.id,
       },
     });
 
     if (!deletedCourse) throw new Error("failed-to-delete");
+
+    await deleteImage(deletedCourse.publicId);
+
+    revalidatePath("/courses");
+    revalidatePath("/");
+    revalidatePath("/actions");
+    revalidatePath("/about");
 
     return JSON.parse(JSON.stringify(deletedCourse));
   } catch (error) {
@@ -158,7 +336,7 @@ export async function deleteCourse(id: string) {
 export async function getCourseById(id: string) {
   try {
     const parsedId = zodId.safeParse(id);
-    
+
     if (!parsedId.success) {
       throw new Error("Invalid id");
     }
@@ -175,7 +353,7 @@ export async function getCourseById(id: string) {
   }
 }
 
-export async function getCourses(limit=12, page=1, searchQuery="") {
+export async function getCourses(limit = 12, page = 1, searchQuery = "") {
   try {
     const courses = await prisma.course.findMany({
       where: {
@@ -190,13 +368,13 @@ export async function getCourses(limit=12, page=1, searchQuery="") {
         createdAt: "desc",
       },
     });
-    return courses
+    return courses;
   } catch (e) {
-    console.log(e)
+    console.log(e);
   }
 }
 
-export async function getPageCount(pageSize=12, searchQuery="") {
+export async function getPageCount(pageSize = 12, searchQuery = "") {
   try {
     const count = await prisma.course.count({
       where: {
@@ -206,8 +384,8 @@ export async function getPageCount(pageSize=12, searchQuery="") {
         },
       },
     });
-    return Math.ceil(count / pageSize)
+    return Math.ceil(count / pageSize);
   } catch (e) {
-    console.log(e)
+    console.log(e);
   }
 }
