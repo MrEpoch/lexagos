@@ -39,7 +39,7 @@ export default function CustomDialog({
             </DialogTitle>
             <DialogDescription>Fill in course information</DialogDescription>
           </DialogHeader>
-          <ActionForm data={data} userIp={ip} isUpdate={isUpdate} />
+          <ActionForm data={data as any} userIp={ip} isUpdate={isUpdate} />
         </ScrollArea>
       </DialogContent>
     </Dialog>

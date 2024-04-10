@@ -96,7 +96,7 @@ export default function CourseCard({
             </p>
           </CardContent>
           <CardFooter className="flex justify-between">
-            <CustomDialog data={data} ip={ip} isUpdate={true}>
+            <CustomDialog data={data as any} ip={ip} isUpdate={true}>
               <Button variant="ghost" size="sm">
                 <Pencil className="w-5 h-5 text-slate-400" />
               </Button>
