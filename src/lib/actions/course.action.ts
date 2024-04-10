@@ -232,7 +232,7 @@ export async function updateCourse(
         throw new Error("course-not-found");
       }
 
-      await deleteImage(course.publicId);
+      await deleteImage(course.publicId as string);
 
       await prisma.course.update({
         where: {
@@ -320,7 +320,7 @@ export async function deleteCourse(id: string) {
 
     if (!deletedCourse) throw new Error("failed-to-delete");
 
-    await deleteImage(deletedCourse.publicId);
+    await deleteImage(deletedCourse.publicId as string);
 
     revalidatePath("/courses");
     revalidatePath("/");
