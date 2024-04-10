@@ -1,7 +1,5 @@
-import CourseCard from "@/components/shared/courses/CourseCard";
 import CustomDialog from "@/components/shared/courses/CustomDialog";
 import { Button } from "@/components/ui/button";
-import { dummyCardContent } from "@/lib/constant";
 import { Plus } from "lucide-react";
 import React from "react";
 import { headers } from "next/headers";
@@ -9,7 +7,6 @@ import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { getCourses, getPageCount } from "@/lib/actions/course.action";
-import { Course } from "@prisma/client";
 import CoursesContent from "@/components/shared/courses/CoursesContent";
 
 export default async function Page({ searchParams }: { searchParams: any }) {
@@ -54,7 +51,6 @@ export default async function Page({ searchParams }: { searchParams: any }) {
             totalPages={pageCount}
             courses={courses}
             ip={ip}
-            id={user.id}
             isAction={true}
           />
         </div>

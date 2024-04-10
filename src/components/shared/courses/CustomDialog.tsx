@@ -15,12 +15,18 @@ export default function CustomDialog({
   isUpdate = false,
   children,
   ip,
-  data
+  data,
 }: {
   isUpdate?: boolean;
   children: React.ReactNode;
   ip: string;
-  data?: { title: string; description: string; price: number; imageUrl: string; id: string }
+  data?: {
+    title: string;
+    description: string;
+    price: number;
+    imageUrl: string;
+    id: string;
+  };
 }) {
   return (
     <Dialog>

@@ -226,7 +226,7 @@ export async function updateCourse(
         where: {
           id,
         },
-      })
+      });
 
       if (!course) {
         throw new Error("course-not-found");

@@ -15,7 +15,7 @@ export default function ImageHandler({
   form,
   image,
   setImage,
-  savedImage
+  savedImage,
 }: ImageHandlerProps) {
   return (
     <>
@@ -34,7 +34,7 @@ export default function ImageHandler({
         )}
       />
       <div className="w-full flex justify-center">
-        {(image || savedImage) ? (
+        {image || savedImage ? (
           <Image
             src={image ? URL.createObjectURL(image) : (savedImage as string)}
             alt="uploaded image"

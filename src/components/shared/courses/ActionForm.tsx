@@ -10,7 +10,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { useEffect, useState, useTransition } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import ImageHandler from "./ImageHandler";
-import { CourseProps, createCourse, updateCourse } from "@/lib/actions/course.action";
+import {
+  CourseProps,
+  createCourse,
+  updateCourse,
+} from "@/lib/actions/course.action";
 import { useRouter } from "next/navigation";
 import { FILE_TYPES } from "@/lib/constant";
 
@@ -49,24 +53,25 @@ export default function ActionForm({
     price: number;
     imageUrl: string;
     id: string;
-  }
+  };
   isUpdate: boolean;
   userIp: string;
 }) {
   const [image, setImage] = useState<File | null>(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: (isUpdate && data)
-      ? {
-          title: data.title,
-          description: data.description,
-          price: String(data.price),
-        }
-      : {
-          title: "",
-          description: "",
-          price: "",
-        },
+    defaultValues:
+      isUpdate && data
+        ? {
+            title: data.title,
+            description: data.description,
+            price: String(data.price),
+          }
+        : {
+            title: "",
+            description: "",
+            price: "",
+          },
   });
 
   const courseId = data?.id;
@@ -81,20 +86,22 @@ export default function ActionForm({
     form.trigger();
     setSubmitting(true);
 
-    const validatedImage = await imageValidation.safeParseAsync(image);
-
-    if (!validatedImage.success) {
-      toast({
-        title: "Error",
-        description: "Invalid image input",
-        variant: "destructive",
-      });
-      setSubmitting(false);
-      return;
-    }
-
     const formData = new FormData();
-    formData.append("image", validatedImage.data);
+    if (image) {
+      const validatedImage = await imageValidation.safeParseAsync(image);
+
+      if (!validatedImage.success) {
+        toast({
+          title: "Error",
+          description: "Invalid image input",
+          variant: "destructive",
+        });
+        setSubmitting(false);
+        return;
+      }
+
+      formData.append("image", validatedImage.data);
+    }
 
     const submitData = {
       name: data.title as string,
@@ -103,7 +110,6 @@ export default function ActionForm({
     } as CourseProps;
 
     if (isUpdate) {
-
       if (!courseId) {
         toast({
           title: "Error",
@@ -113,9 +119,22 @@ export default function ActionForm({
         setSubmitting(false);
         return;
       }
-      const course = await updateCourse(
-        { data: submitData, requestIp: userIp, id: courseId as string },
-      )
+
+      let course;
+
+      if (image) {
+        course = await updateCourse({
+          data: submitData,
+          requestIp: userIp,
+          id: courseId as string,
+        }, formData);
+      } else {
+        course = await updateCourse({
+          data: submitData,
+          requestIp: userIp,
+          id: courseId as string,
+        });
+      }
 
       if (course) {
         form.reset();
