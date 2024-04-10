@@ -123,11 +123,14 @@ export default function ActionForm({
       let course;
 
       if (image) {
-        course = await updateCourse({
-          data: submitData,
-          requestIp: userIp,
-          id: courseId as string,
-        }, formData);
+        course = await updateCourse(
+          {
+            data: submitData,
+            requestIp: userIp,
+            id: courseId as string,
+          },
+          formData,
+        );
       } else {
         course = await updateCourse({
           data: submitData,

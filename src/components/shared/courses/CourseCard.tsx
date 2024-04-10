@@ -19,8 +19,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-
+} from "@/components/ui/alert-dialog";
 
 export default function CourseCard({
   content,
@@ -40,7 +39,7 @@ export default function CourseCard({
     id: content.id,
   };
 
-    const router = useRouter();
+  const router = useRouter();
 
   async function handleDelete() {
     const deleted = await deleteCourse(content.id);
@@ -102,27 +101,29 @@ export default function CourseCard({
                 <Pencil className="w-5 h-5 text-slate-400" />
               </Button>
             </CustomDialog>
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-          <Button variant="ghost" size="sm">
-              <Trash className="w-5 h-5 text-slate-400" />
-            </Button>
-          </AlertDialogTrigger>
-  <AlertDialogContent>
-    <AlertDialogHeader>
-      <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-      <AlertDialogDescription>
-        This action cannot be undone. This will permanently delete this course from our database.
-      </AlertDialogDescription>
-    </AlertDialogHeader>
-    <AlertDialogFooter>
-      <AlertDialogCancel>Cancel</AlertDialogCancel>
-      <AlertDialogAction onClick={handleDelete}>Continue</AlertDialogAction>
-    </AlertDialogFooter>
-  </AlertDialogContent>
-</AlertDialog>
-
-            </CardFooter>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button variant="ghost" size="sm">
+                  <Trash className="w-5 h-5 text-slate-400" />
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete
+                    this course from our database.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={handleDelete}>
+                    Continue
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </CardFooter>
         </Card>
       )}
     </>

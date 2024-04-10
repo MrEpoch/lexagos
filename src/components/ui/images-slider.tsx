@@ -137,7 +137,7 @@ export const ImagesSlider = ({
         <AnimatePresence>
           <motion.img
             key={currentIndex}
-            src={loadedImages[currentIndex]}
+            src={loadedImages[currentIndex] as string}
             initial="initial"
             animate="visible"
             exit={direction === "up" ? "upExit" : "downExit"}
