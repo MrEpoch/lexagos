@@ -5,6 +5,8 @@ import { prisma } from "../db";
 import { z } from "zod";
 import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
+import { rateLimiter } from "../rateLimiter";
+import { redis } from "../redis";
 
 interface UserCreate {
   email: string;
@@ -94,8 +96,13 @@ export async function deleteUser(clerkId: string) {
   }
 }
 
-export async function courseCreatorAdd(userEmail: string) {
+export async function courseCreatorAdd(userEmail: string, ip: string) {
   try {
+    const ipCheck = await rateLimiter(redis, ip, 10, 60 * 60 * 12);
+    if (!ipCheck.success) {
+      throw new Error("too-many-requests");
+    }
+
     const userRequesterId = auth();
     if (!userRequesterId || !userRequesterId.userId)
       throw new Error("User not found");
@@ -134,6 +141,58 @@ export async function courseCreatorAdd(userEmail: string) {
         },
       });
     }
+    return true;
+  } catch (e) {
+    redirect("/actions?error=invalid-email");
+  }
+}
+
+export async function courseCreatorRemove(userEmail: string, ip: string) {
+  try {
+    const ipCheck = await rateLimiter(redis, ip, 10, 60 * 60 * 12);
+    if (!ipCheck.success) {
+      throw new Error("too-many-requests");
+    }
+
+    const userRequesterId = auth();
+    if (!userRequesterId || !userRequesterId.userId)
+      throw new Error("User not found");
+    const userRequester = await prisma.user.findUnique({
+      where: {
+        clerkId: userRequesterId.userId,
+      },
+    });
+
+    if (!userRequester) throw new Error("User not found");
+    if (!userRequester.isCourseCreator)
+      throw new Error("Not a course creator");
+
+    const zodMail = z.string().email();
+    const parsedMail = zodMail.safeParse(userEmail);
+
+    if (!parsedMail.success) {
+      throw new Error("Invalid email");
+    }
+
+    const user = await prisma.user.findUnique({
+      where: {
+        email: userEmail,
+      },
+    });
+
+    if (!user) throw new Error("User not found");
+
+    if (user.isCourseCreator) {
+      await prisma.user.update({
+        where: {
+          clerkId: user.clerkId,
+        },
+        data: {
+          isCourseCreator: false,
+        },
+      });
+    }
+    return true;
   } catch (e) {
     redirect("/actions?error=invalid-email");
   }

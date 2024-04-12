@@ -8,6 +8,8 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { getCourses, getPageCount } from "@/lib/actions/course.action";
 import CoursesContent from "@/components/shared/courses/CoursesContent";
+import { AddCourseCreatorForm } from "@/components/shared/AddCourseCreatorForm";
+import { RemoveCourseCreatorForm } from "@/components/shared/RemoveCourseCreatorForm";
 
 export default async function Page({ searchParams }: { searchParams: any }) {
   // get Ip
@@ -33,7 +35,7 @@ export default async function Page({ searchParams }: { searchParams: any }) {
   if (!user) throw redirect("/sign-in");
   if (!user.isCourseCreator) throw redirect("/");
   const page = Number(searchParams?.page) || 1;
-  const courses = (await getCourses(12, page)) || [];
+  const courses = (await getCourses(12, page, "", user.id)) || [];
   const pageCount = (await getPageCount(12)) || 1;
 
   return (
@@ -53,6 +55,11 @@ export default async function Page({ searchParams }: { searchParams: any }) {
             ip={ip}
             isAction={true}
           />
+        </div>
+        <div className="w-full gap-8 py-16 flex flex-col">
+          <h2 className="text-white font-bold text-3xl">Course creator manage:</h2>
+          <AddCourseCreatorForm ip={ip} />
+          <RemoveCourseCreatorForm ip={ip} />
         </div>
       </div>
     </main>

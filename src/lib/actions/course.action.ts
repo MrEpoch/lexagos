@@ -353,7 +353,7 @@ export async function getCourseById(id: string) {
   }
 }
 
-export async function getCourses(limit = 12, page = 1, searchQuery = "") {
+export async function getCourses(limit = 12, page = 1, searchQuery = "", belongsTo?: string) {
   try {
     const courses = await prisma.course.findMany({
       where: {
@@ -361,6 +361,7 @@ export async function getCourses(limit = 12, page = 1, searchQuery = "") {
           contains: searchQuery,
           mode: "insensitive",
         },
+        courseCreatorId: belongsTo
       },
       skip: (page - 1) * limit,
       take: limit,

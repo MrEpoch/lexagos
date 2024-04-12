@@ -159,20 +159,6 @@ export default function ActionForm({
     return;
   }
 
-  useEffect(() => {
-    if (
-      Object.keys(form.formState.errors).length &&
-      form.formState.isSubmitted
-    ) {
-      console.log(form.formState.errors);
-      toast({
-        title: "Wrong values",
-        description: "Title 3-50, Description 3-200, Price $1-$9999",
-        variant: "destructive",
-      });
-    }
-  }, [form.formState.errors, form.formState.isSubmitted]);
-
   return (
     <Form {...form}>
       <form
