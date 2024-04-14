@@ -9,6 +9,7 @@ import { dark } from "@clerk/themes";
 import { Toaster } from "@/components/ui/toaster";
 import ErrorHandler from "@/components/shared/ErrorHandler";
 import CookieConsent from "@/components/ui/cookie-consent";
+import LangContextProvider from "@/providers/LangContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -38,14 +39,16 @@ export default function RootLayout({
       <html suppressHydrationWarning lang="cz">
         <body className={inter.className}>
           <ThemeProvider attribute="class" enableSystem defaultTheme="dark">
-            <div className="min-h-screen h-full w-full bg-black">
-              <Sidebar isLogged={isLogged} />
-              {children}
-              <CookieConsent />
-              <Footer />
-              <ErrorHandler />
-            </div>
-            <Toaster />
+            <LangContextProvider>
+              <div className="min-h-screen h-full w-full bg-black">
+                <Sidebar isLogged={isLogged} />
+                {children}
+                <CookieConsent />
+                <Footer />
+                <ErrorHandler />
+              </div>
+              <Toaster />
+            </LangContextProvider>
           </ThemeProvider>
         </body>
       </html>

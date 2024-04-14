@@ -1,3 +1,4 @@
+import AboutHeading from "@/components/shared/about/AboutHeading";
 import { HeroParallax } from "@/components/ui/hero-parallax";
 import { getCourses } from "@/lib/actions/course.action";
 import Image from "next/image";
@@ -17,9 +18,7 @@ export default async function Page() {
       />
       <div className="min-h-screen max-w-screen-xl items-center flex flex-col gap-1 h-full mx-auto w-full px-4 py-16 sm:px-6 lg:px-8 z-10">
         <h3 className="text-2xl sm:text-4xl font-bold">
-          <span className="bg-gradient-to-br from-primary to-red-900 bg-clip-text text-transparent box-decoration-clone">
-            About us
-          </span>
+          <AboutHeading />
         </h3>
         <hr className="w-full mt-2 border-2 font-bold" />
         <div className="h-full items-center flex flex-col">

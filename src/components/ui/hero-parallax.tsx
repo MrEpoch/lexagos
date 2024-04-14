@@ -9,6 +9,8 @@ import {
 } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useLang } from "@/providers/LangContext";
+import { section1About } from "@/texts/About";
 
 export const HeroParallax = ({
   products,
@@ -104,14 +106,16 @@ export const HeroParallax = ({
 };
 
 export const Header = () => {
+  const { isEnglish } = useLang();
+
   return (
     <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0">
       <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
-        The&nbsp;
+        {section1About[isEnglish ?? true ? "en" : "cz"].heading.part1}{" "}
         <span className="bg-gradient-to-br from-primary to-red-900 bg-clip-text text-transparent box-decoration-clone">
-          online
-        </span>
-        <br /> education platform
+          {section1About[isEnglish ?? true ? "en" : "cz"].heading.part2}
+        </span>{" "}
+        <br /> {section1About[isEnglish ?? true ? "en" : "cz"].heading.part3}
       </h1>
       <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
         Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit

@@ -7,7 +7,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { sidebarData } from "@/lib/constant";
+import { getSidebarData } from "@/lib/constant";
 import Image from "next/image";
 import { Menu } from "lucide-react";
 import { FloatingNav } from "../ui/floating-navbar";
@@ -20,6 +20,8 @@ export default function Sidebar({
   isLogged: boolean;
   isCreator?: boolean;
 }) {
+  const sidebarData = getSidebarData("en");
+
   return (
     <Sheet>
       <FloatingNav logoInfo={{ logoName: "Lexagos", logo: "/assets/Logo.png" }}>

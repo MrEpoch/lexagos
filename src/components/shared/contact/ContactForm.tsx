@@ -1,4 +1,5 @@
 import React from "react";
+import ContactFormButton from "./ContactFormButton";
 
 export default function ContactForm() {
   return (
@@ -47,12 +48,7 @@ export default function ContactForm() {
           placeholder="Main message ..."
         ></textarea>
       </div>
-      <button
-        type="submit"
-        className="py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-gradient-to-br from-primary to-red-900 sm:w-fit hover:from-primary/90 hover:to-red-900 transition focus:ring-4 focus:outline-none focus:ring-primary"
-      >
-        Send message
-      </button>
+      <ContactFormButton />
     </form>
   );
 }

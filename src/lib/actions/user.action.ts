@@ -164,8 +164,7 @@ export async function courseCreatorRemove(userEmail: string, ip: string) {
     });
 
     if (!userRequester) throw new Error("User not found");
-    if (!userRequester.isCourseCreator)
-      throw new Error("Not a course creator");
+    if (!userRequester.isCourseCreator) throw new Error("Not a course creator");
 
     const zodMail = z.string().email();
     const parsedMail = zodMail.safeParse(userEmail);

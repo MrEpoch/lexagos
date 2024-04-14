@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -13,15 +13,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { useState } from "react"
-import { useToast } from "../ui/use-toast"
-import { courseCreatorRemove } from "@/lib/actions/user.action"
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import { useToast } from "../ui/use-toast";
+import { courseCreatorRemove } from "@/lib/actions/user.action";
 
 const formSchema = z.object({
   email: z.string().email(),
-})
+});
 
 export function RemoveCourseCreatorForm({ ip }: { ip: string }) {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -29,27 +29,25 @@ export function RemoveCourseCreatorForm({ ip }: { ip: string }) {
     defaultValues: {
       email: "",
     },
-  })
+  });
 
   const [submitting, setSubmitting] = useState(false);
   const { toast } = useToast();
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    setSubmitting(true)
+    setSubmitting(true);
     try {
-      const creatorAdd = await courseCreatorRemove(values.email, ip)
+      const creatorAdd = await courseCreatorRemove(values.email, ip);
       if (creatorAdd) {
         toast({
           title: "Success",
           description: "Creator removed successfully",
           variant: "default",
-        })
-        form.reset()
+        });
+        form.reset();
       }
-    } catch (e) {
-
-    }
-    setSubmitting(false)
+    } catch (e) {}
+    setSubmitting(false);
   }
 
   return (
@@ -64,16 +62,15 @@ export function RemoveCourseCreatorForm({ ip }: { ip: string }) {
               <FormControl>
                 <Input placeholder="project@mail.com" {...field} />
               </FormControl>
-              <FormDescription>
-                Remove creator.
-              </FormDescription>
+              <FormDescription>Remove creator.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button disabled={submitting} type="submit">Remove</Button>
+        <Button disabled={submitting} type="submit">
+          Remove
+        </Button>
       </form>
     </Form>
-  )
+  );
 }
-

@@ -8,154 +8,120 @@ import {
   Video,
 } from "lucide-react";
 
+export function getSidebarData(lang = "en") {
+  return sidebarData.map((item: any) => ({
+    ...item,
+    text: item.text[lang],
+  }));
+}
+
 export const sidebarData = [
   {
     link: "/",
-    text: "Home",
+    text: {
+      en: "Home",
+      cz: "Domov",
+    },
     icon: Home,
   },
   {
     link: "/about",
-    text: "About",
+    text: {
+      en: "About",
+      cz: "O mne",
+    },
     icon: PersonStanding,
   },
   {
     link: "/contact",
-    text: "Contact",
+    text: {
+      en: "Contact",
+      cz: "Kontakt",
+    },
     icon: Contact,
   },
   {
     link: "/courses",
-    text: "Courses",
+    text: {
+      en: "Courses",
+      cz: "Kurzy",
+    },
     icon: Video,
   },
   {
     link: "/sign-in",
-    text: "Log In",
+    text: {
+      en: "Sign In",
+      cz: "Přihlásit se",
+    },
     icon: LogIn,
   },
   {
     link: "/sign-up",
-    text: "Sign Up",
+    text: {
+      en: "Sign Up",
+      cz: "Registrace",
+    },
     icon: UserPlus,
   },
   {
     link: "/actions",
-    text: "Actions",
+    text: {
+      en: "Actions",
+      cz: "Akce",
+    },
     icon: LayoutDashboard,
   },
 ];
 
-export const homePageCards = [
-  {
-    title: "Programming",
-    description:
-      "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
-    link: "/courses",
-    imgSrc: "/assets/python.svg",
-  },
-  {
-    title: "Business",
-    description:
-      "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat..",
-    link: "/courses",
-    imgSrc: "/assets/business.svg",
-  },
-  {
-    title: "Languages",
-    description:
-      "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
-    link: "/courses",
-    imgSrc: "/assets/language.svg",
-  },
-];
-
-export const dummyCardContent = [
-  {
-    title: "Book",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    type: "business",
-    link: "/courses",
-    imgSrc: "/assets/book.jpg",
-  },
-  {
-    title: "Book",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    type: "business",
-    link: "/courses",
-    imgSrc: "/assets/book.jpg",
-  },
-  {
-    title: "Book",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    type: "business",
-    link: "/courses",
-    imgSrc: "/assets/book.jpg",
-  },
-  {
-    title: "Book",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    type: "business",
-    link: "/courses",
-    imgSrc: "/assets/book.jpg",
-  },
-  {
-    title: "Book",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    type: "business",
-    link: "/",
-    imgSrc: "/assets/book.jpg",
-  },
-  {
-    title: "Book",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    type: "business",
-    link: "/courses",
-    imgSrc: "/assets/book.jpg",
-  },
-  {
-    title: "Book",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    type: "business",
-    link: "/courses",
-    imgSrc: "/assets/book.jpg",
-  },
-  {
-    title: "Book",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    type: "business",
-    link: "/courses",
-    imgSrc: "/assets/book.jpg",
-  },
-  {
-    title: "Book",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    type: "business",
-    link: "/courses",
-    imgSrc: "/assets/book.jpg",
-  },
-  {
-    title: "Book",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    type: "business",
-    link: "/courses",
-    imgSrc: "/assets/book.jpg",
-  },
-  {
-    title: "Book",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    type: "business",
-    link: "/courses",
-    imgSrc: "/assets/book.jpg",
-  },
-  {
-    title: "Book",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    type: "business",
-    link: "/courses",
-    imgSrc: "/assets/book.jpg",
-  },
-];
+export const homePageCards = {
+  en: [
+    {
+      title: "Programming",
+      description:
+        "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
+      link: "/courses",
+      imgSrc: "/assets/python.svg",
+    },
+    {
+      title: "Business",
+      description:
+        "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat..",
+      link: "/courses",
+      imgSrc: "/assets/business.svg",
+    },
+    {
+      title: "Languages",
+      description:
+        "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
+      link: "/courses",
+      imgSrc: "/assets/language.svg",
+    },
+  ],
+  cz: [
+    {
+      title: "Programování",
+      description:
+        "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
+      link: "/courses",
+      imgSrc: "/assets/python.svg",
+    },
+    {
+      title: "Business",
+      description:
+        "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
+      link: "/courses",
+      imgSrc: "/assets/business.svg",
+    },
+    {
+      title: "Jazyky",
+      description:
+        "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
+      link: "/courses",
+      imgSrc: "/assets/language.svg",
+    },
+  ],
+};
 
 export const errorKinds = {
   "course-create-failed": {

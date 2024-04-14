@@ -57,7 +57,9 @@ export default async function Page({ searchParams }: { searchParams: any }) {
           />
         </div>
         <div className="w-full gap-8 py-16 flex flex-col">
-          <h2 className="text-white font-bold text-3xl">Course creator manage:</h2>
+          <h2 className="text-white font-bold text-3xl">
+            Course creator manage:
+          </h2>
           <AddCourseCreatorForm ip={ip} />
           <RemoveCourseCreatorForm ip={ip} />
         </div>
