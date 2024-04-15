@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import LanguageSwitch from "./LanguageSwitch";
 
 export default function Footer() {
   return (
@@ -21,11 +22,14 @@ export default function Footer() {
     justify-between items-center w-full flex-col gap-4"
         >
           <p className="text-sm text-gray-400">
+          <div>
             © 2022-2024 Lexagos. All rights reserved.
+          </div>
             <Link href="/contact" className="hover:underline">
               Contact
             </Link>
           </p>
+            <LanguageSwitch />
           <div className="flex gap-4 items-center">
             <p className="text-sm text-gray-400">Follow us on: </p>
             <Link href="https://twitter.com">

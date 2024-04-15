@@ -12,7 +12,7 @@ export function AccordionClient() {
   const { isEnglish } = useLang() as { isEnglish: boolean };
   return (
     <>
-      <AccordionItem value="item-1">
+      <AccordionItem role="accordion1" value="item-1">
         <AccordionTrigger>
           {section4Home[isEnglish ?? true ? "en" : "cz"].accordion1.heading}
         </AccordionTrigger>
@@ -20,7 +20,7 @@ export function AccordionClient() {
           {section4Home[isEnglish ?? true ? "en" : "cz"].accordion1.content}
         </AccordionContent>
       </AccordionItem>
-      <AccordionItem value="item-2">
+      <AccordionItem role="accordion2" value="item-2">
         <AccordionTrigger>
           {section4Home[isEnglish ?? true ? "en" : "cz"].accordion2.heading}
         </AccordionTrigger>
@@ -28,7 +28,7 @@ export function AccordionClient() {
           {section4Home[isEnglish ?? true ? "en" : "cz"].accordion2.content}
         </AccordionContent>
       </AccordionItem>
-      <AccordionItem value="item-3">
+      <AccordionItem role="accordion3" value="item-3">
         <AccordionTrigger>
           {section4Home[isEnglish ?? true ? "en" : "cz"].accordion3.heading}
         </AccordionTrigger>

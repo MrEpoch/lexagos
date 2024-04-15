@@ -10,6 +10,10 @@ import { getCourses, getPageCount } from "@/lib/actions/course.action";
 import CoursesContent from "@/components/shared/courses/CoursesContent";
 import { AddCourseCreatorForm } from "@/components/shared/AddCourseCreatorForm";
 import { RemoveCourseCreatorForm } from "@/components/shared/RemoveCourseCreatorForm";
+import {
+  CourseActionsHeader1,
+  CourseActionsHeader2,
+} from "@/components/shared/courses/CourseActionsHeader";
 
 export default async function Page({ searchParams }: { searchParams: any }) {
   // get Ip
@@ -46,7 +50,7 @@ export default async function Page({ searchParams }: { searchParams: any }) {
             <Plus className="w-5 h-5 text-slate-400" />
           </Button>
         </CustomDialog>
-        <h1 className="text-white font-bold text-3xl">Your courses</h1>
+        <CourseActionsHeader1 />
         <div className="flex flex-wrap gap-4 justify-center items-center w-full h-full">
           <CoursesContent
             page={page}
@@ -57,9 +61,7 @@ export default async function Page({ searchParams }: { searchParams: any }) {
           />
         </div>
         <div className="w-full gap-8 py-16 flex flex-col">
-          <h2 className="text-white font-bold text-3xl">
-            Course creator manage:
-          </h2>
+          <CourseActionsHeader2 />
           <AddCourseCreatorForm ip={ip} />
           <RemoveCourseCreatorForm ip={ip} />
         </div>

@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import ActionForm from "./ActionForm";
+import { useLang } from "@/providers/LangContext";
+import { formCreateText, formUpdateText } from "@/texts/Course-actions";
 
 export default function CustomDialog({
   isUpdate = false,
@@ -28,6 +30,9 @@ export default function CustomDialog({
     id: string;
   };
 }) {
+
+  const { isEnglish } = useLang() as { isEnglish: boolean };
+
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
@@ -35,9 +40,9 @@ export default function CustomDialog({
         <ScrollArea className="h-full">
           <DialogHeader>
             <DialogTitle>
-              {isUpdate ? "Update course" : "Create course"}
+              {isUpdate ? (formUpdateText[(isEnglish ?? true) ? "en" : "cz"].header) : (formCreateText[(isEnglish ?? true) ? "en" : "cz"].header)}
             </DialogTitle>
-            <DialogDescription>Fill in course information</DialogDescription>
+            <DialogDescription>{formUpdateText[(isEnglish ?? true) ? "en" : "cz"].headerPara}</DialogDescription>
           </DialogHeader>
           <ActionForm data={data as any} userIp={ip} isUpdate={isUpdate} />
         </ScrollArea>

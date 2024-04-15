@@ -18,6 +18,8 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { useToast } from "../ui/use-toast";
 import { courseCreatorAdd } from "@/lib/actions/user.action";
+import { useLang } from "@/providers/LangContext";
+import { formCreatorManage } from "@/texts/Course-actions";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -33,6 +35,7 @@ export function AddCourseCreatorForm({ ip }: { ip: string }) {
 
   const [submitting, setSubmitting] = useState(false);
   const { toast } = useToast();
+  const { isEnglish } = useLang() as { isEnglish: boolean };
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setSubmitting(true);
@@ -62,13 +65,15 @@ export function AddCourseCreatorForm({ ip }: { ip: string }) {
               <FormControl>
                 <Input placeholder="project@mail.com" {...field} />
               </FormControl>
-              <FormDescription>Email of the new creator.</FormDescription>
+              <FormDescription>
+                {formCreatorManage[isEnglish ?? true ? "en" : "cz"].para1}
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
         <Button disabled={submitting} type="submit">
-          Add
+          {formCreatorManage[isEnglish ?? true ? "en" : "cz"].btn1}
         </Button>
       </form>
     </Form>

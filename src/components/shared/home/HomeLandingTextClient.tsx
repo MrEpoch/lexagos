@@ -1,15 +1,15 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import { useLang } from "@/providers/LangContext";
 import { section1Home } from "@/texts/Home";
 import Link from "next/link";
 import React from "react";
 
 export default function HomeLandingTextClient() {
-  const { isEnglish, toggleLangHandler } = useLang() as { isEnglish: boolean, toggleLangHandler: () => void };
+  const { isEnglish } = useLang() as {
+    isEnglish: boolean;
+  };
   return (
     <>
-      <Button onClick={toggleLangHandler}>{isEnglish ? "en" : "cz"}</Button>
       <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
         {section1Home[isEnglish ?? true ? "en" : "cz"].heading}
       </h1>

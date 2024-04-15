@@ -28,7 +28,7 @@ export const sidebarData = [
     link: "/about",
     text: {
       en: "About",
-      cz: "O mne",
+      cz: "O nás",
     },
     icon: PersonStanding,
   },

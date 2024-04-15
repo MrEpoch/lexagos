@@ -22,10 +22,10 @@ export default async function page({ params }: coursePageParams) {
         <h1 className="text-3xl font-semibold">{course.data.name}</h1>
         <Image
           src={course.data.imageUrl as string}
-          className="sm:w-[675px] w-full object-cover self-center"
+          className="sm:w-[675px] bg-gray-300 w-full object-cover self-center h-[400px]"
           alt={course.data.name}
-          width={2000}
-          height={2000}
+          width={1500}
+          height={1500}
         />
         <p className="text-lg">{course.data.description}</p>
         <Button type="button" variant="secondary" className="w-full">

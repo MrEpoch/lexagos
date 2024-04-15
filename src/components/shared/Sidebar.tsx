@@ -12,6 +12,7 @@ import Image from "next/image";
 import { Menu } from "lucide-react";
 import { FloatingNav } from "../ui/floating-navbar";
 import Link from "next/link";
+import { useLang } from "@/providers/LangContext";
 
 export default function Sidebar({
   isLogged,
@@ -20,7 +21,8 @@ export default function Sidebar({
   isLogged: boolean;
   isCreator?: boolean;
 }) {
-  const sidebarData = getSidebarData("en");
+  const { isEnglish } = useLang() as { isEnglish: boolean };
+  const sidebarData = getSidebarData(isEnglish ?? true ? "en" : "cz");
 
   return (
     <Sheet>

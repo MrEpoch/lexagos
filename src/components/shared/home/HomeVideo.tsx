@@ -9,7 +9,7 @@ export default function HomeVideo() {
       <div className="w-full items-center gap-4 lg:flex-row flex-col justify-between flex h-full">
         <div className="w-full flex flex-col items-center h-full justify-between">
           <HomeVideoClient />
-          <p className="h-full max-w-lg">
+          <p role="art-paragraph" className="h-full max-w-lg">
             Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint
             cillum sint consectetur cupidatat. Lorem ipsum dolor sit amet, qui
             minim labore adipisicing minim sint cillum sint consectetur
@@ -17,7 +17,7 @@ export default function HomeVideo() {
           </p>
           <Image
             src="/assets/tools.svg"
-            alt="Book"
+            alt="Art"
             width={500}
             height={500}
             className="shadow-2xl h-full w-40 object-cover transition-shadow duration-300 ease-in-out"

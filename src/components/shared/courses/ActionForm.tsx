@@ -17,6 +17,8 @@ import {
 } from "@/lib/actions/course.action";
 import { useRouter } from "next/navigation";
 import { FILE_TYPES } from "@/lib/constant";
+import { formCreateText, formUpdateText } from "@/texts/Course-actions";
+import { useLang } from "@/providers/LangContext";
 
 export const formSchema = z.object({
   title: z
@@ -81,6 +83,7 @@ export default function ActionForm({
 
   const router = useRouter();
   const { toast } = useToast();
+  const { isEnglish } = useLang() as { isEnglish: boolean };
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
     form.trigger();
@@ -169,19 +172,19 @@ export default function ActionForm({
         <CustomField
           control={form.control}
           name="title"
-          formLabel="Title (3-50 characters)*"
+          formLabel={formCreateText[(isEnglish ?? true) ? "en" : "cz"].title}
           render={({ field }) => <Input value={field.value} {...field} />}
         />
         <CustomField
           control={form.control}
           name="description"
-          formLabel="Description (3-200 characters)*"
+    formLabel={formCreateText[(isEnglish ?? true) ? "en" : "cz"].description}
           render={({ field }) => <Textarea value={field.value} {...field} />}
         />
         <CustomField
           control={form.control}
           name="price"
-          formLabel="Price ($1-$9999)*"
+    formLabel={formCreateText[(isEnglish ?? true) ? "en" : "cz"].price}
           render={({ field }) => (
             <Input value={field.value} {...field} type="number" />
           )}
@@ -193,7 +196,7 @@ export default function ActionForm({
           setImage={setImage}
         />
         <Button disabled={submitting} type="submit">
-          {isUpdate ? "Update course" : "Create course"}
+          {isUpdate ? formUpdateText[(isEnglish ?? true) ? "en" : "cz"].btn : formCreateText[(isEnglish ?? true) ? "en" : "cz"].btn}
         </Button>
       </form>
     </Form>
