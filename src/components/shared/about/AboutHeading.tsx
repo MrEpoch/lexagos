@@ -4,7 +4,7 @@ import { section2About } from "@/texts/About";
 import React from "react";
 
 export default function AboutHeading() {
-  const { isEnglish } = useLang();
+  const { isEnglish } = useLang() as { isEnglish: boolean };
 
   return (
     <span className="bg-gradient-to-br from-primary to-red-900 bg-clip-text text-transparent box-decoration-clone">

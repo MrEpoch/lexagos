@@ -4,7 +4,7 @@ import { section3Home } from "@/texts/Home";
 import React from "react";
 
 export default function HomeVideoClient() {
-  const { isEnglish } = useLang();
+  const { isEnglish } = useLang() as { isEnglish: boolean };
 
   return (
     <h1 className="text-3xl sm:text-4xl text-center font-bold mb-8">

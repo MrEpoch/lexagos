@@ -4,7 +4,7 @@ import { sectionContact } from "@/texts/Contact";
 import React from "react";
 
 export default function ContactFormButton() {
-  const { isEnglish } = useLang();
+  const { isEnglish } = useLang() as { isEnglish: boolean };
   return (
     <button
       type="submit"

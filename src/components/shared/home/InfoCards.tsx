@@ -6,7 +6,7 @@ import { section2Home } from "@/texts/Home";
 import React from "react";
 
 export default function InfoCards() {
-  const { isEnglish } = useLang();
+  const { isEnglish } = useLang() as { isEnglish: boolean };
 
   return (
     <div className="flex items-center justify-center flex-col min-h-screen h-full w-full mt-8">

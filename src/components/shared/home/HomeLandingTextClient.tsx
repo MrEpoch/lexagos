@@ -6,7 +6,7 @@ import Link from "next/link";
 import React from "react";
 
 export default function HomeLandingTextClient() {
-  const { isEnglish, toggleLangHandler } = useLang();
+  const { isEnglish, toggleLangHandler } = useLang() as { isEnglish: boolean, toggleLangHandler: () => void };
   return (
     <>
       <Button onClick={toggleLangHandler}>{isEnglish ? "en" : "cz"}</Button>

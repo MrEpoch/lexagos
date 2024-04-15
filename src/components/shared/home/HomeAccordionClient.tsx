@@ -9,7 +9,7 @@ import { useLang } from "@/providers/LangContext";
 import { section4Home } from "@/texts/Home";
 
 export function AccordionClient() {
-  const { isEnglish } = useLang();
+  const { isEnglish } = useLang() as { isEnglish: boolean };
   return (
     <>
       <AccordionItem value="item-1">
@@ -41,7 +41,7 @@ export function AccordionClient() {
 }
 
 export function HeadingSection() {
-  const { isEnglish } = useLang();
+  const { isEnglish } = useLang() as { isEnglish: boolean };
 
   return (
     <h3 className="text-3xl sm:text-4xl text-center font-bold mb-8">
