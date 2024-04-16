@@ -64,6 +64,7 @@ export const HeroParallax = ({
       <Header />
 
       <motion.div
+        role="hero-parallax"
         style={{
           rotateX,
           rotateZ,
@@ -109,15 +110,15 @@ export const Header = () => {
   const { isEnglish } = useLang() as { isEnglish: boolean };
 
   return (
-    <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0">
-      <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
+    <div role="hero-heading-about" className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0">
+      <h1 role="hero-heading-h" className="text-2xl md:text-7xl font-bold dark:text-white">
         {section1About[isEnglish ?? true ? "en" : "cz"].heading.part1}{" "}
         <span className="bg-gradient-to-br from-primary to-red-900 bg-clip-text text-transparent box-decoration-clone">
           {section1About[isEnglish ?? true ? "en" : "cz"].heading.part2}
         </span>{" "}
         <br /> {section1About[isEnglish ?? true ? "en" : "cz"].heading.part3}
       </h1>
-      <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
+      <p role="hero-heading-para" className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
         Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit
         enim labore culpa sint ad nisi Lorem pariatur mollit ex esse
         exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit
@@ -141,6 +142,7 @@ export const ProductCard = ({
 }) => {
   return (
     <motion.div
+    role="hero-parallax-product"
       style={{
         x: translate,
       }}
@@ -155,6 +157,7 @@ export const ProductCard = ({
         className="block group-hover/product:shadow-2xl "
       >
         <Image
+    role="hero-parallax-product-image"
           src={product.thumbnail as string}
           height="600"
           width="600"
@@ -163,7 +166,7 @@ export const ProductCard = ({
         />
       </Link>
       <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none"></div>
-      <h2 className="absolute bottom-4 left-4 opacity-0 group-hover/product:opacity-100 text-white">
+      <h2 role="hero-parallax-product-title" className="absolute bottom-4 left-4 opacity-0 group-hover/product:opacity-100 text-white">
         {product.title}
       </h2>
     </motion.div>

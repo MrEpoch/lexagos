@@ -17,12 +17,12 @@ export default async function Page() {
         }))}
       />
       <div className="min-h-screen max-w-screen-xl items-center flex flex-col gap-1 h-full mx-auto w-full px-4 py-16 sm:px-6 lg:px-8 z-10">
-        <h3 className="text-2xl sm:text-4xl font-bold">
+        <h3 role="about-heading" className="text-2xl sm:text-4xl font-bold">
           <AboutHeading />
         </h3>
         <hr className="w-full mt-2 border-2 font-bold" />
         <div className="h-full items-center flex flex-col">
-          <p className="text-base max-w-4xl md:text-xl mt-8">
+          <p role="about-paragraph" className="text-base max-w-4xl md:text-xl mt-8">
             Lorem ipsum dolor sit amet, officia excepteur ex fugiat
             reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit
             ex esse exercitation amet. Nisi anim cupidatat excepteur officia.
@@ -31,13 +31,14 @@ export default async function Page() {
             ut officia.
           </p>
           <Image
+            role="about-image"
             src="/assets/team.jpg"
             alt="about"
             width={500}
             height={500}
             className="mt-8 rounded-xl"
           />
-          <p className="text-base max-w-4xl md:text-xl mt-8">
+          <p role="about-paragraph" className="text-base max-w-4xl md:text-xl mt-8">
             Lorem ipsum dolor sit amet, officia excepteur ex fugiat
             reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit
             ex esse exercitation amet. Nisi anim cupidatat excepteur officia.
@@ -47,6 +48,7 @@ export default async function Page() {
           </p>
 
           <Image
+            role="about-image"
             src="/assets/coffee.jpg"
             alt="about"
             width={500}

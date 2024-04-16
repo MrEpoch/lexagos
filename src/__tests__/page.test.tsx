@@ -2,7 +2,6 @@ import { expect, test } from "vitest";
 import { render, screen, within } from "@testing-library/react";
 import Page from "../app/page";
 import { section1Home, section2Home, section3Home, section4Home } from "@/texts/Home";
-import userEvent from "@testing-library/user-event";
 
 test("Page", async () => {
   render(<Page />);
@@ -31,6 +30,10 @@ test("Page", async () => {
     screen.getByText(section1Home["en"].btnMore) ||
       screen.getByText(section1Home["cz"].btnMore),
   ).toBeDefined();
+
+  // Canvas globe rotating container
+  
+  expect(within(screen.getByRole("globe-rotating"))).toBeDefined();
 
   // Section 2
 

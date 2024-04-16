@@ -29,17 +29,17 @@ export default function ContactsTable() {
   };
 
   return (
-    <Table>
-      <TableCaption>Contact choices</TableCaption>
-      <TableHeader>
-        <TableRow>
+    <Table role="contact-table">
+      <TableCaption role="contact-table-caption">Contact choices</TableCaption>
+      <TableHeader role="contact-table-header">
+        <TableRow role="contact-table-row-header">
           <TableHead className="">Contact Type</TableHead>
           <TableHead>Text</TableHead>
           <TableHead className="text-right">Actions</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        <TableRow>
+        <TableRow role="contact-table-row-1">
           <TableCell className="font-medium">Email</TableCell>
           <TableCell>projekt@mail.com</TableCell>
           <TableCell className="text-right">
@@ -47,11 +47,11 @@ export default function ContactsTable() {
               onClick={() => copyToClipboard("projekt@mail.com")}
               variant="secondary"
             >
-              <Clipboard />
+              <Clipboard role="image-item" />
             </Button>
           </TableCell>
         </TableRow>
-        <TableRow>
+        <TableRow role="contact-table-row-2">
           <TableCell className="font-medium">Phone</TableCell>
           <TableCell>(+420) 777 777 777</TableCell>
           <TableCell className="text-right">
@@ -59,17 +59,18 @@ export default function ContactsTable() {
               onClick={() => copyToClipboard("(+420) 777 777 777")}
               variant="secondary"
             >
-              <Clipboard />
+              <Clipboard role="image-item" />
             </Button>
           </TableCell>
         </TableRow>
-        <TableRow>
+        <TableRow role="contact-table-row-3">
           <TableCell className="font-medium">Instagram</TableCell>
           <TableCell>@projekt</TableCell>
           <TableCell className="text-right">
             <Button asChild variant="secondary">
               <Link href="https://www.instagram.com">
                 <Image
+                  role="image-item"
                   src={"/social-icons/Instagram_Glyph_Gradient.png"}
                   alt="Instagram"
                   width={24}
@@ -79,13 +80,14 @@ export default function ContactsTable() {
             </Button>
           </TableCell>
         </TableRow>
-        <TableRow>
+        <TableRow role="contact-table-row-4">
           <TableCell className="font-medium">X</TableCell>
           <TableCell>@projekt</TableCell>
           <TableCell className="text-right">
             <Button asChild variant="secondary">
               <Link href="https://www.twitter.com">
                 <Image
+                  role="image-item"
                   src={"/social-icons/logo-white.png"}
                   alt="Instagram"
                   width={24}
@@ -95,13 +97,14 @@ export default function ContactsTable() {
             </Button>
           </TableCell>
         </TableRow>
-        <TableRow>
+        <TableRow role="contact-table-row-5">
           <TableCell className="font-medium">Facebook</TableCell>
           <TableCell>@projekt</TableCell>
           <TableCell className="text-right">
             <Button asChild variant="secondary">
               <Link href="https://www.facebook.com">
                 <Image
+                  role="image-item"
                   src={"/social-icons/Facebook_Logo_Primary.png"}
                   alt="Instagram"
                   width={24}

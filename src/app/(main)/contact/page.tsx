@@ -15,6 +15,7 @@ export default function Page() {
             <div className="w-full flex flex-col gap-4 items-center md:items-start">
               <ContactHeader />
               <Image
+    role="customer-support-svg"
                 src="/assets/Customer-support.svg"
                 alt="contact-us"
                 width={500}

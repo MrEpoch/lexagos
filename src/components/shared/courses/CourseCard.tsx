@@ -49,23 +49,24 @@ export default function CourseCard({
   return (
     <>
       {!(isAction && ip) ? (
-        <Link href={isAction ? "#" : `/courses/course/${content.id}`}>
+        <Link role="course-card" href={isAction ? "#" : `/courses/course/${content.id}`}>
           <Card className="hover:scale-105 transition-all duration-300 py-4 sm:w-[375px] w-[300px] max-[375px]:w-full">
             <CardContent className="flex flex-col gap-2 h-full">
               <Image
+        role="course-card-image"
                 src={content.imageUrl as string}
                 alt={content.name}
                 width={500}
                 height={500}
                 className="w-full h-72 rounded-xl object-cover"
               />
-              <h1 className="text-white font-bold text-lg">
+              <h1 role="course-card-title" className="text-white font-bold text-lg">
                 {content.name.length > 30
                   ? content.name.slice(0, 30).concat("...")
                   : content.name}
               </h1>
               <h3 className="font-medium text-gray-600">Overview</h3>
-              <p className="text-gray-400">
+              <p role="course-card-description" className="text-gray-400">
                 {content.description.length > 100
                   ? content.description.slice(0, 100).concat("...")
                   : content.description}
@@ -74,7 +75,7 @@ export default function CourseCard({
           </Card>
         </Link>
       ) : (
-        <Card className="hover:scale-105 transition-all duration-300 py-4 sm:w-[375px] w-[300px] max-[375px]:w-full">
+        <Card role="course-card" className="hover:scale-105 transition-all duration-300 py-4 sm:w-[375px] w-[300px] max-[375px]:w-full">
           <CardContent className="flex flex-col gap-2 h-full">
             <Image
               src={content.imageUrl as string}
