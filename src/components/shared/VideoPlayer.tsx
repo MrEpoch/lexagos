@@ -26,7 +26,7 @@ export default function VideoPlayer({
       <button
         className="relative w-full h-full flex justify-center items-center focus:outline-none focus-visible:ring focus-visible:ring-primary rounded-3xl group"
         onClick={() => setModalOpen(true)}
-    role="video-player-btn"
+        role="video-player-btn"
         aria-label="Watch the video"
       >
         <Image
@@ -65,6 +65,7 @@ export default function VideoPlayer({
           id="default-modal"
           tabIndex={-1}
           aria-hidden="true"
+          role="video-modal"
           className="flex justify-center items-center backdrop-brightness-50 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 min-h-screen max-h-full"
         >
           <div
@@ -72,7 +73,7 @@ export default function VideoPlayer({
             className="relative p-4 w-full max-w-2xl max-h-full"
           >
             <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-              <video role="video-player-video" width={videoWidth} height={videoHeight} loop controls>
+              <video role="video-player" width={videoWidth} height={videoHeight} loop controls>
                 <track kind="captions" />
                 <source src={video as string} type="video/mp4" />
                 Your browser does not support the video tag.

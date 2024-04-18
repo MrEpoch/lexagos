@@ -14,6 +14,7 @@ import {
   CourseActionsHeader1,
   CourseActionsHeader2,
 } from "@/components/shared/courses/CourseActionsHeader";
+import { authCheck } from "@/lib/VerifyAuth";
 
 export default async function Page({ searchParams }: { searchParams: any }) {
   // get Ip
@@ -30,14 +31,8 @@ export default async function Page({ searchParams }: { searchParams: any }) {
 
   if (!userId) throw redirect("/sign-in");
 
-  const user = await prisma.user.findUnique({
-    where: {
-      clerkId: userId,
-    },
-  });
+  const user = await authCheck(userId);
 
-  if (!user) throw redirect("/sign-in");
-  if (!user.isCourseCreator) throw redirect("/");
   const page = Number(searchParams?.page) || 1;
   const courses = (await getCourses(12, page, "", user.id)) || [];
   const pageCount = (await getPageCount(12)) || 1;
