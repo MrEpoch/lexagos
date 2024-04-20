@@ -32,6 +32,7 @@ model User {
 
   Memberships Membership[]
   courses Course[]
+  coursesJoined String[]
   Transactions Transaction[]
 }
 

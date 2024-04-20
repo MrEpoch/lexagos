@@ -395,3 +395,121 @@ export async function getPageCount(pageSize = 12, searchQuery = "") {
     console.log(e);
   }
 }
+
+export async function addCourseToUser(courseId: string) {
+  try {
+    const parsedCourseId = zodId.safeParse(courseId);
+    if (!parsedCourseId.success) {
+      throw new Error("invalid-course-id");
+    }
+
+    const user = auth();
+
+    if (!user || !user.userId) {
+      throw new Error("user-not-found");
+    }
+
+    const userDb = await prisma.user.findUnique({
+      where: {
+        clerkId: user.userId,
+      },
+    });
+
+    if (!userDb) {
+      throw new Error("user-not-found");
+    }
+
+    const course = await prisma.course.findUnique({
+      where: {
+        id: parsedCourseId.data,
+      },
+    });
+
+    if (!course) {
+      throw new Error("course-not-found");
+    }
+
+    // check if already user has that course
+
+    if (userDb.coursesJoined.some((c) => c === course.id)) {
+      throw new Error("course-already-joined");
+    }
+
+    await prisma.user.update({
+      where: {
+        id: userDb.id,
+      },
+      data: {
+        coursesJoined: {
+          push: course.id,
+        },
+      },
+    })
+
+    return { error: false };
+  } catch (error: any) {
+    console.log(error);
+    if (error?.message === "user-not-found") {
+      redirect("/sign-in");
+    } else if (error?.message === "course-not-found" || error?.message === "invalid-course-id") {
+      redirect("/courses");
+    } else if (error?.message === "course-already-joined") {
+      redirect("/account");
+    }
+
+    return { error: true };
+  }
+}
+
+export async function getUserCoursePages(pageSize = 12, searchQuery = "") {
+  try {
+    const courses = await prisma.course.count({
+      where: {
+        name: {
+          contains: searchQuery,
+          mode: "insensitive",
+        },
+      },
+    });
+
+    return Math.ceil(courses / pageSize);
+  } catch (error: any) {
+  }
+}
+
+export async function getUserCourses({ limit = 12, page = 1, searchQuery = "" }) {
+  try {
+    const user = auth();
+
+    if (!user || !user.userId) {
+      throw new Error("user-not-found");
+    }
+
+    const userDb = await prisma.user.findUnique({
+      where: {
+        clerkId: user?.userId,
+      },
+    });
+
+    if (!userDb) {
+      throw new Error("user-not-found");
+    }
+
+    const courses = await prisma.course.findMany({
+      where: {
+        id: {
+          in: userDb.coursesJoined,
+        },
+      },
+      skip: (page - 1) * limit,
+      take: limit,
+      orderBy: {
+        createdAt: "desc",
+      }
+    })
+
+    return courses;
+  } catch (error) {
+    
+  }
+}

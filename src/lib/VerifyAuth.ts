@@ -14,3 +14,15 @@ export async function authCheck(userId: string) {
 
   return user;
 }
+
+export async function userCheck(userId: string) {
+  const user = await prisma.user.findUnique({
+    where: {
+      clerkId: userId,
+    },
+  })
+
+  if (!user) throw redirect("/sign-in");
+
+  return user;
+}

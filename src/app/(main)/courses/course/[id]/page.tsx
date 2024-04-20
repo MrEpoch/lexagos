@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import AddCourseToUser from "@/components/shared/courses/AddCourseToUser";
 import { getCourseById } from "@/lib/actions/course.action";
 import Image from "next/image";
 import { redirect } from "next/navigation";
@@ -28,9 +28,7 @@ export default async function page({ params }: coursePageParams) {
           height={1500}
         />
         <p className="text-lg">{course.data.description}</p>
-        <Button type="button" variant="secondary" className="w-full">
-          Enroll
-        </Button>
+        <AddCourseToUser courseId={course.data.id} />
       </div>
     </main>
   );

@@ -10,6 +10,7 @@ import { Toaster } from "@/components/ui/toaster";
 import ErrorHandler from "@/components/shared/ErrorHandler";
 import CookieConsent from "@/components/ui/cookie-consent";
 import LangContextProvider from "@/providers/LangContext";
+import { prisma } from "@/lib/db";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,15 +19,27 @@ export const metadata: Metadata = {
   description: "Laxagos, E-learning platform focused on educational content.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   let isLogged = false;
+  let isCourseCreator = false;
   const { userId } = auth();
 
-  if (userId) isLogged = true;
+  if (userId) {
+
+    const user = await prisma.user.findUnique({
+      where: {
+        clerkId: userId
+      }
+    })
+
+    if (user)isLogged = true;
+    if (user?.isCourseCreator) isCourseCreator = true;
+  }
+
 
   return (
     <ClerkProvider
@@ -41,7 +54,7 @@ export default function RootLayout({
           <ThemeProvider attribute="class" enableSystem defaultTheme="dark">
             <LangContextProvider>
               <div className="min-h-screen h-full w-full bg-black">
-                <Sidebar isLogged={isLogged} />
+                <Sidebar isCreator={isCourseCreator} isLogged={isLogged} />
                 {children}
                 <CookieConsent />
                 <Footer />

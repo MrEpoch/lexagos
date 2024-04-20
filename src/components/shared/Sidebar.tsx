@@ -41,6 +41,7 @@ export default function Sidebar({
             <ul className="flex flex-col text-gray-400 gap-4">
               {sidebarData
                 .slice(0, isLogged ? 4 : 6)
+                .concat(isLogged ? sidebarData[7] : [])
                 .concat(isLogged && isCreator ? sidebarData[6] : [])
                 .map((item, i) => (
                   <li key={i}>

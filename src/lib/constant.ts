@@ -4,6 +4,7 @@ import {
   LayoutDashboard,
   LogIn,
   PersonStanding,
+  User,
   UserPlus,
   Video,
 } from "lucide-react";
@@ -72,6 +73,14 @@ export const sidebarData = [
     },
     icon: LayoutDashboard,
   },
+  {
+    link: "/account",
+    text: {
+      en: "Account",
+      cz: "Účet",
+    },
+    icon: User,
+  }
 ];
 
 export const homePageCards = {
