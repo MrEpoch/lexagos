@@ -5,6 +5,8 @@ import LanguageSwitch from "./LanguageSwitch";
 
 export default function Footer() {
   return (
+    <>
+      <hr className="w-full h-px my-8 bg-gray-200 border-0 dark:bg-card" />
     <footer className="w-full py-8 relative flex items-center justify-between px-4">
       <div className="w-full">
         <Link href="/" className="w-full flex items-center gap-4">
@@ -61,5 +63,6 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+    </>
   );
 }

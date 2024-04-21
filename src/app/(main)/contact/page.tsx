@@ -29,7 +29,9 @@ export default function Page() {
             </div>
           </div>
         </div>
+        <hr className="my-4" />
         <ContactsTable />
+        <hr className="my-4" />
         <MapyComponent />
       </div>
     </section>

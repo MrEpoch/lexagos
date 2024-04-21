@@ -20,7 +20,7 @@ export default async function Page() {
         <h3 role="about-heading" className="text-2xl sm:text-4xl font-bold">
           <AboutHeading />
         </h3>
-        <hr className="w-full mt-2 border-2 font-bold" />
+        <hr className="w-full mt-2 font-bold h-px" />
         <div className="h-full items-center flex flex-col">
           <p role="about-paragraph" className="text-base max-w-4xl md:text-xl mt-8">
             Lorem ipsum dolor sit amet, officia excepteur ex fugiat
@@ -36,7 +36,7 @@ export default async function Page() {
             alt="about"
             width={500}
             height={500}
-            className="mt-8 rounded-xl"
+            className="mt-8"
           />
           <p role="about-paragraph" className="text-base max-w-4xl md:text-xl mt-8">
             Lorem ipsum dolor sit amet, officia excepteur ex fugiat
@@ -53,7 +53,7 @@ export default async function Page() {
             alt="about"
             width={500}
             height={500}
-            className="mt-8 rounded-xl"
+            className="mt-8"
           />
         </div>
       </div>
