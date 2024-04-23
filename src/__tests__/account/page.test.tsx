@@ -1,6 +1,6 @@
 import { expect, test, vi } from "vitest";
 import { render, screen, within } from "@testing-library/react";
-import Page from "../../app/(course-actions)/actions/page";
+import Page from "../../app/(main)/account/page";
 
 vi.mock("@clerk/nextjs", async () => {
   return {
@@ -10,9 +10,10 @@ vi.mock("@clerk/nextjs", async () => {
   }
 })
 
-vi.mock("@/lib/VerifyAuth", async () => {
+vi.mock("@/lib/course.action", async () => {
   return {
-    authCheck: vi.fn(async () => ({ id: "123" }))
+    getUserCoursePages: vi.fn(async () => []),
+    getUserCourses: vi.fn(async () => []),
   }
 })
 
@@ -42,6 +43,11 @@ vi.mock("next/headers", async () => {
   }
 })
 
+
 test("Page", async () => {
   render(await Page({ searchParams: {} }));
+
+  const accountHeading = screen.getByRole("account-heading");
+
+  expect(accountHeading).toBeDefined();
 })
