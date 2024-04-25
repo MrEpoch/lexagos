@@ -36,7 +36,7 @@ export default function CustomDialog({
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="h-full">
+      <DialogContent  role="dialog-window" className="h-full">
         <ScrollArea className="h-full">
           <DialogHeader>
             <DialogTitle>

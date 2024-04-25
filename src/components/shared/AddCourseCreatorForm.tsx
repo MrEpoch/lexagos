@@ -55,17 +55,17 @@ export function AddCourseCreatorForm({ ip }: { ip: string }) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form role="user-action-form" onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel role="input-label">Email</FormLabel>
               <FormControl>
-                <Input placeholder="project@mail.com" {...field} />
+                <Input role="input-form" placeholder="project@mail.com" {...field} />
               </FormControl>
-              <FormDescription>
+              <FormDescription role="input-desc">
                 {formCreatorManage[isEnglish ?? true ? "en" : "cz"].para1}
               </FormDescription>
               <FormMessage />

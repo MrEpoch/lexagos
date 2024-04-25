@@ -98,12 +98,12 @@ export default function CourseCard({
           </CardContent>
           <CardFooter className="flex justify-between">
             <CustomDialog data={data as any} ip={ip} isUpdate={true}>
-              <Button variant="ghost" size="sm">
+              <Button role="course-action-update" variant="ghost" size="sm">
                 <Pencil className="w-5 h-5 text-slate-400" />
               </Button>
             </CustomDialog>
             <AlertDialog>
-              <AlertDialogTrigger asChild>
+              <AlertDialogTrigger role="course-action-delete" asChild>
                 <Button variant="ghost" size="sm">
                   <Trash className="w-5 h-5 text-slate-400" />
                 </Button>

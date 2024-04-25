@@ -10,10 +10,23 @@ vi.mock("@clerk/nextjs", async () => {
   }
 })
 
-vi.mock("@/lib/course.action", async () => {
+vi.mock("@/lib/actions/course.action", async () => {
   return {
-    getUserCoursePages: vi.fn(async () => []),
-    getUserCourses: vi.fn(async () => []),
+    getUserCourses: vi.fn(async ({}) => [
+      {
+        id: "0a20edc5-264b-48af-b3a6-ddf1d7fffac9",
+        createdAt: new Date("2024-04-06T12:20:39.159Z"),
+        updatedAt: new Date("2024-04-06T12:20:39.159Z"),
+        name: "test",
+        description: "test",
+        price: 89,
+        courseCreatorId: "97acc09a-d159-41f6-9e3b-4f1f9d4cfcbc",
+        imageUrl: "http://res.cloudinary.com/dwyd6egxk/image/upload/v1712406038/rpqcmwlvkpeqnuf834hl.jpg",
+        imageSignature: "45e10f91d57019c9c7338da01c24588a943d60a6",
+        publicId: "rpqcmwlvkpeqnuf834hl"
+      }
+    ]),
+    getUserCoursePages: vi.fn(async () => 0),
   }
 })
 
@@ -48,6 +61,10 @@ test("Page", async () => {
   render(await Page({ searchParams: {} }));
 
   const accountHeading = screen.getByRole("account-heading");
-
   expect(accountHeading).toBeDefined();
+
+  // should be only one, i above give that one staticly
+
+  const cardItem = screen.getByRole("course-card");
+  expect(cardItem).toBeDefined();
 })
