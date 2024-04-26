@@ -38,7 +38,7 @@ export default async function Page({ searchParams }: { searchParams: any }) {
   const pageCount = (await getPageCount(12)) || 1;
 
   return (
-    <main className="min-h-screen py-16 pt-32 relative w-full h-full">
+    <main role="action-form-page" className="min-h-screen py-16 pt-32 relative w-full h-full">
       <div className="flex flex-col gap-8 max-w-screen-xl h-full mx-auto w-full px-4 sm:px-6 lg:px-8 z-10">
         <CustomDialog ip={ip}>
           <Button role="modal-btn-add" variant="ghost" className="w-12 h-12 self-end" size="sm">

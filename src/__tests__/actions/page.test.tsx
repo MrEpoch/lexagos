@@ -1,5 +1,5 @@
-import { expect, test, vi } from "vitest";
-import { fireEvent, render, screen, within } from "@testing-library/react";
+import { describe, expect, test, vi } from "vitest";
+import { fireEvent, queryByAttribute, queryByRole, render, screen, within } from "@testing-library/react";
 import Page from "../../app/(course-actions)/actions/page";
 
 vi.mock("@clerk/nextjs", async () => {
@@ -62,33 +62,95 @@ vi.mock("next/headers", async () => {
   }
 })
 
-test("Page", async () => {
+describe("Action page testing", async () => {
   render(await Page({ searchParams: {} }));
 
-  const pageHeading = screen.getAllByRole("course-action-header");
-  expect(pageHeading.length).toEqual(2);
+  test("Page basic functionality", async () => {
+    const pageHeading = screen.getAllByRole("course-action-header");
+    expect(pageHeading.length).toEqual(2);
 
-  const modalAddBtn = screen.getByRole("modal-btn-add");
-  expect(modalAddBtn).toBeDefined();
 
-  const cardItem = screen.getByRole("course-card");
-  expect(cardItem).toBeDefined();
+    const cardItem = screen.getByRole("course-card");
+    expect(cardItem).toBeDefined();
 
-  const deleteBtn = within(cardItem).getByRole("course-action-delete");
-  const updateBtn = within(cardItem).getByRole("course-action-update");
+    const deleteBtn = within(cardItem).getByRole("course-action-delete");
+    const updateBtn = within(cardItem).getByRole("course-action-update");
 
-  expect(deleteBtn).toBeDefined();
-  expect(updateBtn).toBeDefined();
+    expect(deleteBtn).toBeDefined();
+    expect(updateBtn).toBeDefined();
 
-  const userActionForm = screen.getAllByRole("user-action-form");
-  expect(userActionForm.length).toEqual(2);
-  userActionForm.forEach((form) => {
-    expect(within(form).getByRole("button")).toBeDefined();
-    expect(within(form).getByRole("input-form")).toBeDefined();
-    expect(within(form).getByRole("input-label")).toBeDefined();
-    expect(within(form).getByRole("input-desc")).toBeDefined();
+    const userActionForm = screen.getAllByRole("user-action-form");
+    expect(userActionForm.length).toEqual(2);
+    userActionForm.forEach((form) => {
+      expect(within(form).getByRole("button")).toBeDefined();
+      expect(within(form).getByRole("input-form")).toBeDefined();
+      expect(within(form).getByRole("input-label")).toBeDefined();
+      expect(within(form).getByRole("input-desc")).toBeDefined();
+    })
   })
 
-  fireEvent.click(modalAddBtn);
-  expect(screen.getByRole("dialog-window")).toBeDefined();
+  test("Create Modal functionality", async () => {
+    const modalAddBtn = screen.getByRole("modal-btn-add");
+    expect(modalAddBtn).toBeDefined();
+    fireEvent.click(modalAddBtn);
+
+    const dialogWindow = screen.getByRole("dialog-window");
+    expect(dialogWindow).toBeDefined();
+
+    const actionForm = within(dialogWindow).getByRole("action-form");
+    expect(actionForm).toBeDefined();
+
+    expect(within(actionForm).getByRole("button")).toBeDefined();
+
+    const inputs = within(actionForm).getAllByRole("action-input-field");
+
+    expect(inputs.length).toEqual(4);
+
+    fireEvent.change(inputs[0], { target: { value: "title-test" } });
+    fireEvent.change(inputs[1], { target: { value: "description-test" } });
+    fireEvent.change(inputs[2], { target: { value: "99" } });
+
+    expect(inputs[0]).toHaveProperty("value", "title-test");
+    expect(inputs[1]).toHaveProperty("value", "description-test");
+    expect(inputs[2]).toHaveProperty("value", "99");
+
+    // close modal
+
+    const closeBtn = screen.getByRole("close-dialog");
+    fireEvent.click(closeBtn);
+    expect(screen.queryByRole("dialog-window")).toBeNull();
+  })
+
+  test("Update Modal functionality", async () => {
+    const modalUpdateBtn = screen.getByRole("course-action-update");
+    expect(modalUpdateBtn).toBeDefined();
+    fireEvent.click(modalUpdateBtn);
+
+    const dialogWindow = screen.getByRole("dialog-window");
+    expect(dialogWindow).toBeDefined();
+
+    const actionForm = within(dialogWindow).getByRole("action-form");
+    expect(actionForm).toBeDefined();
+
+    expect(within(actionForm).getByRole("button")).toBeDefined();
+    expect(within(actionForm).getAllByRole("action-input-field").length).toEqual(4);
+
+    const inputs = within(actionForm).getAllByRole("action-input-field");
+
+    expect(inputs.length).toEqual(4);
+
+    fireEvent.change(inputs[0], { target: { value: "title-test" } });
+    fireEvent.change(inputs[1], { target: { value: "description-test" } });
+    fireEvent.change(inputs[2], { target: { value: "99" } });
+
+    expect(inputs[0]).toHaveProperty("value", "title-test");
+    expect(inputs[1]).toHaveProperty("value", "description-test");
+    expect(inputs[2]).toHaveProperty("value", "99");
+
+    // close modal
+
+    const closeBtn = screen.getByRole("close-dialog");
+    fireEvent.click(closeBtn);
+    expect(screen.queryByRole("dialog-window")).toBeNull();
+  })
 })
