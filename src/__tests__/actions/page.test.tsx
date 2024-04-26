@@ -114,6 +114,12 @@ describe("Action page testing", async () => {
     expect(inputs[1]).toHaveProperty("value", "description-test");
     expect(inputs[2]).toHaveProperty("value", "99");
 
+    // last input is file for image
+    
+    fireEvent.change(inputs[3], { target: { files: [new File(["image-test"], "image-test.png", { type: "image/png" })] } });
+
+    expect(inputs[3]).toHaveProperty("value", "image-test.png");
+
     // close modal
 
     const closeBtn = screen.getByRole("close-dialog");
