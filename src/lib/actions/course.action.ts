@@ -444,14 +444,17 @@ export async function addCourseToUser(courseId: string) {
           push: course.id,
         },
       },
-    })
+    });
 
     return { error: false };
   } catch (error: any) {
     console.log(error);
     if (error?.message === "user-not-found") {
       redirect("/sign-in");
-    } else if (error?.message === "course-not-found" || error?.message === "invalid-course-id") {
+    } else if (
+      error?.message === "course-not-found" ||
+      error?.message === "invalid-course-id"
+    ) {
       redirect("/courses");
     } else if (error?.message === "course-already-joined") {
       redirect("/account");
@@ -473,11 +476,14 @@ export async function getUserCoursePages(pageSize = 12, searchQuery = "") {
     });
 
     return Math.ceil(courses / pageSize);
-  } catch (error: any) {
-  }
+  } catch (error: any) {}
 }
 
-export async function getUserCourses({ limit = 12, page = 1, searchQuery = "" }) {
+export async function getUserCourses({
+  limit = 12,
+  page = 1,
+  searchQuery = "",
+}) {
   try {
     const user = auth();
 
@@ -505,11 +511,9 @@ export async function getUserCourses({ limit = 12, page = 1, searchQuery = "" })
       take: limit,
       orderBy: {
         createdAt: "desc",
-      }
-    })
+      },
+    });
 
     return courses;
-  } catch (error) {
-    
-  }
+  } catch (error) {}
 }

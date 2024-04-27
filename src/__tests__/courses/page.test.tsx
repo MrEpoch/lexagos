@@ -17,8 +17,8 @@ vi.mock("next/navigation", async () => {
       getAll: vi.fn(),
     })),
     usePathname: vi.fn(),
-  }
-})
+  };
+});
 
 test("Data of courses", async () => {
   const page = 1;
@@ -32,7 +32,7 @@ test("Data of courses", async () => {
   expect(courses?.length).toBeGreaterThan(0);
 
   expect(pageCount).toBeDefined();
-})
+});
 
 test("Page", async () => {
   render(await Page({ searchParams: {} }));
@@ -45,5 +45,5 @@ test("Page", async () => {
     expect(within(card).getByRole("course-card-title")).toBeDefined();
     expect(within(card).getByRole("course-card-description")).toBeDefined();
     expect(within(card).getByRole("course-card-image")).toBeDefined();
-  })
-})
+  });
+});

@@ -5,10 +5,10 @@ import Page from "../../app/(main)/account/page";
 vi.mock("@clerk/nextjs", async () => {
   return {
     auth: vi.fn(() => ({
-      userId: "123"
-    }))
-  }
-})
+      userId: "123",
+    })),
+  };
+});
 
 vi.mock("@/lib/actions/course.action", async () => {
   return {
@@ -21,14 +21,15 @@ vi.mock("@/lib/actions/course.action", async () => {
         description: "test",
         price: 89,
         courseCreatorId: "97acc09a-d159-41f6-9e3b-4f1f9d4cfcbc",
-        imageUrl: "http://res.cloudinary.com/dwyd6egxk/image/upload/v1712406038/rpqcmwlvkpeqnuf834hl.jpg",
+        imageUrl:
+          "http://res.cloudinary.com/dwyd6egxk/image/upload/v1712406038/rpqcmwlvkpeqnuf834hl.jpg",
         imageSignature: "45e10f91d57019c9c7338da01c24588a943d60a6",
-        publicId: "rpqcmwlvkpeqnuf834hl"
-      }
+        publicId: "rpqcmwlvkpeqnuf834hl",
+      },
     ]),
     getUserCoursePages: vi.fn(async () => 0),
-  }
-})
+  };
+});
 
 vi.mock("next/navigation", async () => {
   const actual = await vi.importActual("next/navigation");
@@ -43,19 +44,18 @@ vi.mock("next/navigation", async () => {
       getAll: vi.fn(),
     })),
     usePathname: vi.fn(),
-  }
-})
+  };
+});
 
 vi.mock("next/headers", async () => {
   const actual = await vi.importActual("next/headers");
   return {
     ...actual,
     headers: vi.fn(() => ({
-      get: vi.fn()
-    }))
-  }
-})
-
+      get: vi.fn(),
+    })),
+  };
+});
 
 test("Page", async () => {
   render(await Page({ searchParams: {} }));
@@ -67,4 +67,4 @@ test("Page", async () => {
 
   const cardItem = screen.getByRole("course-card");
   expect(cardItem).toBeDefined();
-})
+});

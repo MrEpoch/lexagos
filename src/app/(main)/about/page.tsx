@@ -22,7 +22,10 @@ export default async function Page() {
         </h3>
         <hr className="w-full mt-2 font-bold h-px" />
         <div className="h-full items-center flex flex-col">
-          <p role="about-paragraph" className="text-base max-w-4xl md:text-xl mt-8">
+          <p
+            role="about-paragraph"
+            className="text-base max-w-4xl md:text-xl mt-8"
+          >
             Lorem ipsum dolor sit amet, officia excepteur ex fugiat
             reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit
             ex esse exercitation amet. Nisi anim cupidatat excepteur officia.
@@ -38,7 +41,10 @@ export default async function Page() {
             height={500}
             className="mt-8"
           />
-          <p role="about-paragraph" className="text-base max-w-4xl md:text-xl mt-8">
+          <p
+            role="about-paragraph"
+            className="text-base max-w-4xl md:text-xl mt-8"
+          >
             Lorem ipsum dolor sit amet, officia excepteur ex fugiat
             reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit
             ex esse exercitation amet. Nisi anim cupidatat excepteur officia.

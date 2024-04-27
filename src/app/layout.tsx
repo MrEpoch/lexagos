@@ -29,17 +29,15 @@ export default async function RootLayout({
   const { userId } = auth();
 
   if (userId) {
-
     const user = await prisma.user.findUnique({
       where: {
-        clerkId: userId
-      }
-    })
+        clerkId: userId,
+      },
+    });
 
-    if (user)isLogged = true;
+    if (user) isLogged = true;
     if (user?.isCourseCreator) isCourseCreator = true;
   }
-
 
   return (
     <ClerkProvider

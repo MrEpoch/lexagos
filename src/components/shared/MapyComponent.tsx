@@ -15,14 +15,18 @@ export default function MapyComponent() {
     <>
       <div className="min-h-screen flex w-full py-8">
         {isShown ? (
-          <iframe role="mapy-map"
+          <iframe
+            role="mapy-map"
             className="border-none w-full rounded-xl"
             src="https://en.frame.mapy.cz/s/depokobuvu"
             width={1000}
             height={680}
           />
         ) : (
-          <div role="mapy-map" className="w-full min-h-full flex justify-center items-center flex-1 bg-card">
+          <div
+            role="mapy-map"
+            className="w-full min-h-full flex justify-center items-center flex-1 bg-card"
+          >
             <p className="text-white rounded-xl font-bold text-3xl">
               Please accept cookies and reload to see map
             </p>

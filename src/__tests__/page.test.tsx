@@ -1,14 +1,18 @@
-import { describe, expect, it, test, vi } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import Page from "../app/page";
-import { section1Home, section2Home, section3Home, section4Home } from "@/texts/Home";
-import user from "@testing-library/user-event";
+import {
+  section1Home,
+  section2Home,
+  section3Home,
+  section4Home,
+} from "@/texts/Home";
 
-describe("Page", async () => {
+describe("Page", () => {
   render(<Page />);
 
   // Section 1
-  it("Should test section 1", () => {
+  test("Should test section 1", () => {
     expect(
       screen.getByRole("heading", {
         level: 1,
@@ -33,13 +37,13 @@ describe("Page", async () => {
     ).toBeDefined();
 
     // Canvas globe rotating container
-    
+
     expect(within(screen.getByRole("globe-rotating"))).toBeDefined();
-  })
+  });
 
   // Section 2
 
-  it("Should test section 2", () => {
+  test("Should test section 2", () => {
     expect(
       screen.getByRole("heading", {
         level: 1,
@@ -60,75 +64,106 @@ describe("Page", async () => {
             section2Home["cz"].heading.split3,
         }),
     ).toBeDefined();
-  })
+
+    const hoverCard = screen.getAllByRole("hover-card");
+
+    expect(hoverCard.length).toEqual(3);
+
+    hoverCard.forEach((card) => {
+      expect(within(card).getByRole("hover-card-title")).toBeDefined();
+      expect(within(card).getByRole("hover-card-description")).toBeDefined();
+      expect(within(card).getByRole("hover-card-image")).toBeDefined();
+    })
+  });
 
   // Section 3
 
-  it("Should test section 3", async () => {
-    user.setup();
+  test("Should test section 3", async () => {
     expect(
-    screen.getByRole("heading", {
-      level: 1,
-      name:
-        section3Home["en"].heading.split1 +
-        " " +
-        section3Home["en"].heading.split2 +
-        " " +
-        section3Home["en"].heading.split3,
-    }) ||
       screen.getByRole("heading", {
         level: 1,
         name:
-          section3Home["cz"].heading.split1 +
+          section3Home["en"].heading.split1 +
           " " +
-          section3Home["cz"].heading.split2 +
+          section3Home["en"].heading.split2 +
           " " +
-          section3Home["cz"].heading.split3,
-      }),
-  ).toBeDefined();
+          section3Home["en"].heading.split3,
+      }) ||
+        screen.getByRole("heading", {
+          level: 1,
+          name:
+            section3Home["cz"].heading.split1 +
+            " " +
+            section3Home["cz"].heading.split2 +
+            " " +
+            section3Home["cz"].heading.split3,
+        }),
+    ).toBeDefined();
 
-  // Paragraph
+    // Paragraph
 
-  expect(screen.getByRole("art-paragraph")).toBeDefined();
+    expect(screen.getByRole("art-paragraph")).toBeDefined();
 
-  // Image art
-  
-  expect(screen.getByAltText("Art")).toBeDefined();
+    // Image art
 
+    expect(screen.getByAltText("Art")).toBeDefined();
 
-  // Video thumbnail
+    // Video thumbnail
 
-  expect(screen.getByAltText("Modal video thumbnail")).toBeDefined();
+    expect(screen.getByAltText("Modal video thumbnail")).toBeDefined();
 
-  // Video player btn
+    // Video player btn
 
-  const videoPlayerBtn = screen.getByRole("video-player-btn");
-  expect(videoPlayerBtn).toBeDefined();
+    const videoPlayerBtn = screen.getByRole("video-player-btn");
+    expect(videoPlayerBtn).toBeDefined();
+    fireEvent.click(videoPlayerBtn);
 
-  expect(screen.getByRole("home-video")).toBeDefined();
-  })
+    // video player
+
+    const video = screen.getByRole("video-modal");
+    expect(video).toBeDefined();
+
+    expect(screen.getByRole("home-video")).toBeDefined();
+  });
   // Section 4
-  
-  it("Should test section 4", () => {
-  
-  expect(screen.getByRole("heading", { level: 3, name: section4Home["en"].heading }) || screen.getByRole("heading", { level: 3, name: section4Home["cz"].heading })).toBeDefined();
 
+  test("Should test section 4", () => {
+    expect(
+      screen.getByRole("heading", {
+        level: 3,
+        name: section4Home["en"].heading,
+      }) ||
+        screen.getByRole("heading", {
+          level: 3,
+          name: section4Home["cz"].heading,
+        }),
+    ).toBeDefined();
 
-  // Image question mark svg test
+    // Image question mark svg test
 
-  expect(screen.getByAltText("Question mark")).toBeDefined();
+    expect(screen.getByAltText("Question mark")).toBeDefined();
 
-  // 3 accordions heading tests
-  
-  expect (screen.getByText(section4Home["en"].accordion1.heading) || screen.getByText(section4Home["cz"].accordion1.heading)).toBeDefined();
-  expect (screen.getByText(section4Home["en"].accordion2.heading) || screen.getByText(section4Home["cz"].accordion2.heading)).toBeDefined();
-  expect (screen.getByText(section4Home["en"].accordion3.heading) || screen.getByText(section4Home["cz"].accordion3.heading)).toBeDefined();
+    // 3 accordions heading tests
 
-  // 3 accordion hidden content test
-  
-  expect (within(screen.getByRole("accordion1")).getByRole("button") || within(screen.getByRole("accordion2")).getByRole("button") || within(screen.getByRole("accordion3"))).toBeDefined();
-  })
+    expect(
+      screen.getByText(section4Home["en"].accordion1.heading) ||
+        screen.getByText(section4Home["cz"].accordion1.heading),
+    ).toBeDefined();
+    expect(
+      screen.getByText(section4Home["en"].accordion2.heading) ||
+        screen.getByText(section4Home["cz"].accordion2.heading),
+    ).toBeDefined();
+    expect(
+      screen.getByText(section4Home["en"].accordion3.heading) ||
+        screen.getByText(section4Home["cz"].accordion3.heading),
+    ).toBeDefined();
+
+    // 3 accordion hidden content test
+
+    expect(
+      within(screen.getByRole("accordion1")).getByRole("button") ||
+        within(screen.getByRole("accordion2")).getByRole("button") ||
+        within(screen.getByRole("accordion3")),
+    ).toBeDefined();
+  });
 });
-
-
-

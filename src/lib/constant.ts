@@ -80,7 +80,7 @@ export const sidebarData = [
       cz: "Účet",
     },
     icon: User,
-  }
+  },
 ];
 
 export const homePageCards = {

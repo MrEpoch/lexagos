@@ -1,4 +1,4 @@
-'use server';
+"use server";
 import { prisma } from "./db";
 import { redirect } from "next/navigation";
 
@@ -20,7 +20,7 @@ export async function userCheck(userId: string) {
     where: {
       clerkId: userId,
     },
-  })
+  });
 
   if (!user) throw redirect("/sign-in");
 

@@ -5,7 +5,10 @@ import HomeVideoClient from "./HomeVideoClient";
 
 export default function HomeVideo() {
   return (
-    <div role="home-video" className="min-h-screen h-full w-full flex items-center relative">
+    <div
+      role="home-video"
+      className="min-h-screen h-full w-full flex items-center relative"
+    >
       <div className="w-full items-center gap-4 lg:flex-row flex-col justify-between flex h-full">
         <div className="w-full flex flex-col items-center h-full justify-between">
           <HomeVideoClient />

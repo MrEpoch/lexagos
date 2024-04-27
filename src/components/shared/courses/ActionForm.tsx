@@ -168,26 +168,41 @@ export default function ActionForm({
         encType="multipart/form-data"
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-8 w-full"
-    role="action-form"
+        role="action-form"
       >
         <CustomField
           control={form.control}
           name="title"
-          formLabel={formCreateText[(isEnglish ?? true) ? "en" : "cz"].title}
-          render={({ field }) => <Input role="action-input-field" value={field.value} {...field} />}
+          formLabel={formCreateText[isEnglish ?? true ? "en" : "cz"].title}
+          render={({ field }) => (
+            <Input role="action-input-field" value={field.value} {...field} />
+          )}
         />
         <CustomField
           control={form.control}
           name="description"
-    formLabel={formCreateText[(isEnglish ?? true) ? "en" : "cz"].description}
-          render={({ field }) => <Textarea role="action-input-field" value={field.value} {...field} />}
+          formLabel={
+            formCreateText[isEnglish ?? true ? "en" : "cz"].description
+          }
+          render={({ field }) => (
+            <Textarea
+              role="action-input-field"
+              value={field.value}
+              {...field}
+            />
+          )}
         />
         <CustomField
           control={form.control}
           name="price"
-    formLabel={formCreateText[(isEnglish ?? true) ? "en" : "cz"].price}
+          formLabel={formCreateText[isEnglish ?? true ? "en" : "cz"].price}
           render={({ field }) => (
-            <Input role="action-input-field" value={field.value} {...field} type="number" />
+            <Input
+              role="action-input-field"
+              value={field.value}
+              {...field}
+              type="number"
+            />
           )}
         />
         <ImageHandler
@@ -197,7 +212,9 @@ export default function ActionForm({
           setImage={setImage}
         />
         <Button disabled={submitting} type="submit">
-          {isUpdate ? formUpdateText[(isEnglish ?? true) ? "en" : "cz"].btn : formCreateText[(isEnglish ?? true) ? "en" : "cz"].btn}
+          {isUpdate
+            ? formUpdateText[isEnglish ?? true ? "en" : "cz"].btn
+            : formCreateText[isEnglish ?? true ? "en" : "cz"].btn}
         </Button>
       </form>
     </Form>

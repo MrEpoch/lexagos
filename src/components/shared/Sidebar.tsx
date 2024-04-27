@@ -27,13 +27,13 @@ export default function Sidebar({
   return (
     <Sheet>
       <FloatingNav logoInfo={{ logoName: "Lexagos", logo: "/assets/Logo.png" }}>
-        <SheetTrigger className="">
+        <SheetTrigger role="sheet-trigger" className="">
           <Menu />
         </SheetTrigger>
       </FloatingNav>
-      <SheetContent className="h-full" side={"left"}>
+      <SheetContent role="sidebar" className="h-full" side={"left"}>
         <SheetHeader className="h-full">
-          <SheetTitle className="flex items-center gap-2">
+          <SheetTitle role="sidebar-heading" className="flex items-center gap-2">
             <Image src="/assets/Logo.png" alt="Logo" width={80} height={80} />
             <span className="text-2xl font-bold">Lexagos</span>
           </SheetTitle>
@@ -44,13 +44,13 @@ export default function Sidebar({
                 .concat(isLogged ? sidebarData[7] : [])
                 .concat(isLogged && isCreator ? sidebarData[6] : [])
                 .map((item, i) => (
-                  <li key={i}>
+                  <li key={i} role="sidebar-link">
                     <Link
                       href={item.link}
                       className="flex items-center space-x-2 hover:text-white hover:bg-primary py-3 px-4 rounded-lg gap-4 text-md font-semibold"
                     >
-                      <item.icon className="h-6 w-6" />
-                      {item.text}
+                      <item.icon role="sidebar-link-icon" className="h-6 w-6" />
+                      <span role="sidebar-link-text">{item.text}</span>
                     </Link>
                   </li>
                 ))}

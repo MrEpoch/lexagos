@@ -28,6 +28,7 @@ export const HoverEffect = ({
     >
       {items.map((item, idx) => (
         <Link
+        role="hover-card"
           href={item?.link}
           key={idx}
           className="relative group  block p-2 h-full w-64 sm:w-full"
@@ -90,7 +91,7 @@ export const CardTitle = ({
   children: React.ReactNode;
 }) => {
   return (
-    <h4 className={cn("text-zinc-100 font-bold tracking-wide mt-4", className)}>
+    <h4 role="hover-card-title" className={cn("text-zinc-100 font-bold tracking-wide mt-4", className)}>
       {children}
     </h4>
   );
@@ -106,7 +107,7 @@ export const CardImage = ({
   alt: string;
 }) => {
   return (
-    <Image
+    <Image role="hover-card-image"
       src={src as string}
       className={cn("w-full h-full object-cover rounded-3xl", className)}
       alt={alt}
@@ -124,7 +125,7 @@ export const CardDescription = ({
   children: React.ReactNode;
 }) => {
   return (
-    <p
+    <p role="hover-card-description"
       className={cn(
         "mt-8 text-zinc-400 tracking-wide leading-relaxed text-sm",
         className,
