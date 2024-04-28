@@ -67,7 +67,5 @@ describe("Sidebar testing unlogged", () => {
       expect(within(link).getByRole("sidebar-link-icon")).toBeDefined();
       expect(within(link).getByRole("sidebar-link-text")).toBeDefined();
     })
-
   })
-
 })

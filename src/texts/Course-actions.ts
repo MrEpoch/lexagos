@@ -61,3 +61,12 @@ export const formCreatorManage = {
     btn2: "Odstranit",
   },
 };
+
+export const coursesPage = {
+  en: {
+    header: "Choose your path",
+  },
+  cz: {
+    header: "Vyber svou cestu",
+  },
+}

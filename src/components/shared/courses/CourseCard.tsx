@@ -83,7 +83,7 @@ export default function CourseCard({
       ) : (
         <Card
           role="course-card"
-          className="hover:scale-105 transition-all duration-300 py-4 sm:w-[375px] w-[300px] max-[375px]:w-full"
+          className="hover:scale-105 flex flex-col gap-4 transition-all duration-300 py-4 sm:w-[375px] w-[300px] max-[375px]:w-full"
         >
           <CardContent className="flex flex-col gap-2 h-full">
             <Image

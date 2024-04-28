@@ -1,0 +1,21 @@
+name: Vitest with React testing library
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+env:
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  SHADOW_DATABASE_URL: ${{ secrets.SHADOW_DATABASE_URL }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 21
+      - run: npm ci
+      - run: npm run test
