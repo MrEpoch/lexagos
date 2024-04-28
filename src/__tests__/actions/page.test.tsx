@@ -143,7 +143,9 @@ describe("Action page testing", async () => {
     fireEvent.click(actionSubmitBtn);
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    const inputsRefreshed = within(within(screen.getByRole("dialog-window")).getByRole("action-form")).getAllByRole("action-input-field");
+    const inputsRefreshed = within(
+      within(screen.getByRole("dialog-window")).getByRole("action-form"),
+    ).getAllByRole("action-input-field");
 
     expect(inputsRefreshed[0]).toHaveProperty("value", "");
     expect(inputsRefreshed[1]).toHaveProperty("value", "");

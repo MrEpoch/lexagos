@@ -123,7 +123,6 @@ export default function ActionForm({
         return;
       }
 
-
       if (image) {
         const course = await updateCourse(
           {
@@ -134,10 +133,9 @@ export default function ActionForm({
           formData,
         );
         if (course) {
-form.reset();
-        router.push(`/actions`);
-        window.location.reload();
-
+          form.reset();
+          router.push(`/actions`);
+          window.location.reload();
         }
       } else {
         const course = await updateCourse({
@@ -147,13 +145,11 @@ form.reset();
         });
 
         if (course) {
-form.reset();
-        router.push(`/actions`);
-        window.location.reload();
-
+          form.reset();
+          router.push(`/actions`);
+          window.location.reload();
         }
       }
-
     } else {
       const course = await createCourse(
         { data: submitData, requestIp: userIp },

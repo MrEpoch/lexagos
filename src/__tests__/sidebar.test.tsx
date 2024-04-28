@@ -3,7 +3,6 @@ import { fireEvent, render, screen, within } from "@testing-library/react";
 import Sidebar from "@/components/shared/Sidebar";
 import { UserButton } from "@clerk/nextjs";
 
-
 vi.mock("@clerk/nextjs", async () => {
   return {
     auth: vi.fn(() => ({
@@ -14,13 +13,12 @@ vi.mock("@clerk/nextjs", async () => {
 });
 
 vi.mock("framer-motion", async () => {
-
   const actual = await vi.importActual("framer-motion");
 
   return {
     ...actual,
     useMotionValueEvent: vi.fn(),
-  }
+  };
 });
 
 describe("Sidebar testing unlogged", () => {
@@ -29,7 +27,7 @@ describe("Sidebar testing unlogged", () => {
     const floatingNav = screen.getAllByRole("floating-nav");
     expect(floatingNav).toBeDefined();
 
-    fireEvent.click(within(floatingNav[0]).getByRole("sheet-trigger"))
+    fireEvent.click(within(floatingNav[0]).getByRole("sheet-trigger"));
 
     const sidebar = screen.getByRole("sidebar");
     expect(sidebar).toBeDefined();
@@ -44,14 +42,14 @@ describe("Sidebar testing unlogged", () => {
     sidebarLinks.forEach((link) => {
       expect(within(link).getByRole("sidebar-link-icon")).toBeDefined();
       expect(within(link).getByRole("sidebar-link-text")).toBeDefined();
-    })
-  })
+    });
+  });
   test("Sidebar 2 test", () => {
     render(<Sidebar isLogged={true} />);
     const floatingNav = screen.getAllByRole("floating-nav");
     expect(floatingNav).toBeDefined();
 
-    fireEvent.click(within(floatingNav[0]).getByRole("sheet-trigger"))
+    fireEvent.click(within(floatingNav[0]).getByRole("sheet-trigger"));
 
     const sidebar = screen.getByRole("sidebar");
     expect(sidebar).toBeDefined();
@@ -66,6 +64,6 @@ describe("Sidebar testing unlogged", () => {
     sidebarLinks.forEach((link) => {
       expect(within(link).getByRole("sidebar-link-icon")).toBeDefined();
       expect(within(link).getByRole("sidebar-link-text")).toBeDefined();
-    })
-  })
-})
+    });
+  });
+});

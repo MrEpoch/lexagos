@@ -69,4 +69,4 @@ export const coursesPage = {
   cz: {
     header: "Vyber svou cestu",
   },
-}
+};

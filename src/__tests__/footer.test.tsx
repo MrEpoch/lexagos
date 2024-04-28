@@ -14,5 +14,5 @@ describe("Footer testing", () => {
 
     const footerSocial = within(footer).getAllByRole("footer-social");
     expect(footerSocial.length).toEqual(3);
-  })
-})
+  });
+});

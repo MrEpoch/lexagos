@@ -425,7 +425,6 @@ export async function addCourseToUser(courseId: string) {
       redirect("/too-many-requests");
     }
 
-
     const parsedCourseId = zodId.safeParse(courseId);
     if (!parsedCourseId.success) {
       throw new Error("invalid-course-id");

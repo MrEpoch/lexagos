@@ -33,7 +33,10 @@ export default function Sidebar({
       </FloatingNav>
       <SheetContent role="sidebar" className="h-full" side={"left"}>
         <SheetHeader className="h-full">
-          <SheetTitle role="sidebar-heading" className="flex items-center gap-2">
+          <SheetTitle
+            role="sidebar-heading"
+            className="flex items-center gap-2"
+          >
             <Image src="/assets/Logo.png" alt="Logo" width={80} height={80} />
             <span className="text-2xl font-bold">Lexagos</span>
           </SheetTitle>

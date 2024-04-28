@@ -73,7 +73,7 @@ describe("Page", () => {
       expect(within(card).getByRole("hover-card-title")).toBeDefined();
       expect(within(card).getByRole("hover-card-description")).toBeDefined();
       expect(within(card).getByRole("hover-card-image")).toBeDefined();
-    })
+    });
   });
 
   // Section 3
