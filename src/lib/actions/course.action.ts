@@ -11,6 +11,7 @@ import { redis } from "../redis";
 import { redirect } from "next/navigation";
 import { FILE_TYPES } from "../constant";
 import { auth } from "@clerk/nextjs/server";
+import { limiter } from "../Limiter";
 
 export interface CourseProps {
   name: string;
@@ -290,6 +291,12 @@ export async function updateCourse(
 
 export async function deleteCourse(id: string) {
   try {
+    const remaining = await limiter.removeTokens(1);
+
+    if (remaining < 0) {
+      redirect("/too-many-requests");
+    }
+
     const clerkUser = auth();
 
     if (!clerkUser || !clerkUser.userId) {
@@ -335,6 +342,11 @@ export async function deleteCourse(id: string) {
 
 export async function getCourseById(id: string) {
   try {
+    const remaining = await limiter.removeTokens(1);
+    if (remaining < 0) {
+      redirect("/too-many-requests");
+    }
+
     const parsedId = zodId.safeParse(id);
 
     if (!parsedId.success) {
@@ -360,6 +372,11 @@ export async function getCourses(
   belongsTo?: string,
 ) {
   try {
+    const remaining = await limiter.removeTokens(1);
+    if (remaining < 0) {
+      redirect("/too-many-requests");
+    }
+
     const courses = await prisma.course.findMany({
       where: {
         name: {
@@ -382,6 +399,11 @@ export async function getCourses(
 
 export async function getPageCount(pageSize = 12, searchQuery = "") {
   try {
+    const remaining = await limiter.removeTokens(1);
+    if (remaining < 0) {
+      redirect("/too-many-requests");
+    }
+
     const count = await prisma.course.count({
       where: {
         name: {
@@ -398,6 +420,12 @@ export async function getPageCount(pageSize = 12, searchQuery = "") {
 
 export async function addCourseToUser(courseId: string) {
   try {
+    const remaining = await limiter.removeTokens(1);
+    if (remaining < 0) {
+      redirect("/too-many-requests");
+    }
+
+
     const parsedCourseId = zodId.safeParse(courseId);
     if (!parsedCourseId.success) {
       throw new Error("invalid-course-id");
@@ -466,6 +494,11 @@ export async function addCourseToUser(courseId: string) {
 
 export async function getUserCoursePages(pageSize = 12, searchQuery = "") {
   try {
+    const remaining = await limiter.removeTokens(1);
+    if (remaining < 0) {
+      redirect("/too-many-requests");
+    }
+
     const courses = await prisma.course.count({
       where: {
         name: {
@@ -485,6 +518,11 @@ export async function getUserCourses({
   searchQuery = "",
 }) {
   try {
+    const remaining = await limiter.removeTokens(1);
+    if (remaining < 0) {
+      redirect("/too-many-requests");
+    }
+
     const user = auth();
 
     if (!user || !user.userId) {
