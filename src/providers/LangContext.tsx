@@ -34,7 +34,6 @@ export default function LangContextProvider({
       const isEnglishVal: boolean = JSON.parse(
         localStorage.getItem("isEnglish")!,
       );
-      console.log(isEnglishVal);
       setIsEnglish(() => {
         return isEnglishVal;
       });
@@ -44,7 +43,6 @@ export default function LangContextProvider({
   function toggleLangHandler(): void {
     const isEnglish: boolean = JSON.parse(localStorage.getItem("isEnglish")!);
     setIsEnglish(!isEnglish);
-    console.log(isEnglish);
     setValueToLocalStorage();
   }
 
