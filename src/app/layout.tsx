@@ -11,6 +11,7 @@ import ErrorHandler from "@/components/shared/ErrorHandler";
 import CookieConsent from "@/components/ui/cookie-consent";
 import LangContextProvider from "@/providers/LangContext";
 import { prisma } from "@/lib/db";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -57,6 +58,7 @@ export default async function RootLayout({
                 <CookieConsent />
                 <Footer />
                 <ErrorHandler />
+                <SpeedInsights />
               </div>
               <Toaster />
             </LangContextProvider>
