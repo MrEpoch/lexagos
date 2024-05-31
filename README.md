@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# SPEC-1: Lexagos
 
-## Getting Started
+## Background
 
-First, run the development server:
+This project aims to build learning platform, with user management, courses, image upload, course tracking and more. 
+The application will be built using Next.js for the frontend, Prisma for database ORM, Docker for containerization, 
+and Clerk for authentication. Additional services like Cloudinary for image uploads will be integrated.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Requirements
+
+The following requirements are categorized based on MoSCoW prioritization:
+
+### Must Have
+- Course create, update, delete feature
+- User authentication and db save through hooks using Clerk
+- User profiles
+- Course admin page
+- Feature to track courses
+- Roles with permissions (User, Admin)
+
+### Should Have
+- Tests with vitest and github actions
+- Image upload via Cloudinary
+
+### Could Have
+- Custom courses
+- Preloaded client components with useMemo and more optimalization tools
+
+### Won't Have
+- Extensive third-party integrations
+
+## Method
+
+### High-Level Architecture Design
+
+The architecture for the Discord clone will include the following main components:
+1. **Frontend**: Built with Next.js, it will handle the user interface and client-side logic.
+2. **Backend**: Implemented with Next.js, it will use Prisma for database operations.
+3. **Authentication**: Managed by Clerk with webhooks for user authentication and authorization.
+4. **Database**: A relational database managed using Prisma ORM and containerized with Docker.
+5. **Image Upload Service**: Integration with Cloudinary for handling image uploads.
+
+Here's the high-level component diagram:
+
+```mermaid
+graph TD
+  subgraph "Frontend (Next.js)"
+    UI[User Interface] 
+  end
+
+  subgraph "Backend (Nextjs.js)"
+    ServerActions[Nextjs actions]
+    ApiRoutes[Nextjs routes]
+    Prisma[Prisma ORM]
+  end
+
+  subgraph "Authentication (Clerk)"
+    AuthService[Auth Service]
+  end
+
+  subgraph "Database (Docker)"
+    PostgreSQL[PostgreSQL]
+  end
+
+  subgraph "Image Upload (Cloudinary)"
+    UploadService[Upload Service]
+  end
+
+  UI --> ServerActions
+  UI --> ApiRoutes
+  APIServer --> AuthService
+  APIServer --> Prisma
+  APIServer --> UploadService
+  ServerActions --> Prisma
+  ApiRoutes --> Prisma
+  Prisma --> PostgreSQL
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
