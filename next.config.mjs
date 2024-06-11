@@ -59,6 +59,11 @@ const nextConfig = {
       },
     ];
   },
+Removed from vercel.json cause of maps
+{
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self' https://sensible-condor-58.clerk.accounts.dev blob: data:; img-src 'self' blob: data: res.cloudinary.com https://img.clerk.com ;style-src 'self' 'unsafe-inline'; script-src 'unsafe-eval' 'self' 'unsafe-inline' https://sensible-condor-58.clerk.accounts.dev blob: data:; frame-src https://en.frame.mapy.cz/s/depokobuvu "
+        },
   */
 };
 
