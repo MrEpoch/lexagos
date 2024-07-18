@@ -8,7 +8,7 @@ export default async function Page() {
   const courses = (await getCourses(16, 1, "")) || [];
 
   return (
-    <div className="py-8">
+    <div className="py-8 z-10">
       <HeroParallax
         products={courses.map((item) => ({
           title: item.name,
@@ -17,14 +17,17 @@ export default async function Page() {
         }))}
       />
       <div className="min-h-screen max-w-screen-xl items-center flex flex-col gap-1 h-full mx-auto w-full px-4 py-16 sm:px-6 lg:px-8 z-10">
-        <h3 role="about-heading" className="text-2xl sm:text-4xl font-bold">
+        <h2 role="about-heading" className="text-2xl sm:text-4xl font-bold">
           <AboutHeading />
-        </h3>
-        <hr className="w-full mt-2 font-bold h-px" />
-        <div className="h-full items-center flex flex-col">
+        </h2>
+        <hr className="w-full mt-2 font-bold h-0.5 py-4" />
+        <div className="h-full items-center gap-16 flex flex-col">
+          <div className="flex lg:flex-row flex-col py-16 justify-between items-center gap-5">
+          <div className="flex flex-col gap-5">
+            <h3 role="about-heading" className="text-3xl sm:text-5xl font-bold">Friendly team</h3>
           <p
             role="about-paragraph"
-            className="text-base max-w-4xl md:text-xl mt-8"
+            className="text-base max-w-4xl "
           >
             Lorem ipsum dolor sit amet, officia excepteur ex fugiat
             reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit
@@ -33,17 +36,31 @@ export default async function Page() {
             voluptate dolor minim nulla est proident. Nostrud officia pariatur
             ut officia.
           </p>
+          </div>
           <Image
             role="about-image"
             src="/assets/team.jpg"
             alt="about"
             width={500}
             height={500}
-            className="mt-8"
+            className="rounded"
+    />
+      </div>
+      <div className="flex lg:flex-row flex-col py-16 justify-between items-center gap-5">
+          <Image
+            role="about-image"
+            src="/assets/coffee.jpg"
+            alt="about"
+            width={500}
+            height={500}
+            className="rounded"
           />
+
+        <div className="flex flex-col gap-5">
+          <h3 role="about-heading" className="text-3xl sm:text-5xl font-bold">Coffee lovers collective</h3>
           <p
             role="about-paragraph"
-            className="text-base max-w-4xl md:text-xl mt-8"
+            className="text-base max-w-4xl"
           >
             Lorem ipsum dolor sit amet, officia excepteur ex fugiat
             reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit
@@ -52,15 +69,8 @@ export default async function Page() {
             voluptate dolor minim nulla est proident. Nostrud officia pariatur
             ut officia.
           </p>
-
-          <Image
-            role="about-image"
-            src="/assets/coffee.jpg"
-            alt="about"
-            width={500}
-            height={500}
-            className="mt-8"
-          />
+        </div>
+        </div>
         </div>
       </div>
     </div>

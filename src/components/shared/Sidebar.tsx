@@ -31,7 +31,7 @@ export default function Sidebar({
           <Menu />
         </SheetTrigger>
       </FloatingNav>
-      <SheetContent role="sidebar" className="h-full" side={"left"}>
+      <SheetContent role="sidebar" className="h-full overflow-y-auto" side={"left"}>
         <SheetHeader className="h-full">
           <SheetTitle
             role="sidebar-heading"
