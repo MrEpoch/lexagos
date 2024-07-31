@@ -12,7 +12,7 @@ export default async function Page({ searchParams }: { searchParams: any }) {
 
   return (
     <main className="w-full py-16 md:py-32 h-full min-h-screen">
-      <div className="max-w-screen-xl flex items-center flex-col gap-6 justify-between h-full mx-auto w-full px-4 sm:px-6 lg:px-8 z-10 py-12">
+      <div className="max-w-screen-xl flex flex-col gap-6 justify-between h-full mx-auto w-full px-4 sm:px-6 lg:px-8 z-10 py-12">
         <CoursePageHeading />
         <hr className="w-full border-gray-700" />
         <CoursesContent page={page} totalPages={pageCount} courses={courses} />

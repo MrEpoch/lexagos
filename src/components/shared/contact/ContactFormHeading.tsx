@@ -8,7 +8,7 @@ export default function ContactFormHeading() {
 
   return (
     <p className="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-300 sm:text-xl">
-      {sectionContact[isEnglish ?? true ? "en" : "cz"].content2}
+      {sectionContact[(isEnglish ?? true) ? "en" : "cz"].content2}
     </p>
   );
 }

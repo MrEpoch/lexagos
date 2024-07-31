@@ -40,11 +40,11 @@ export default function CustomDialog({
           <DialogHeader>
             <DialogTitle>
               {isUpdate
-                ? formUpdateText[isEnglish ?? true ? "en" : "cz"].header
-                : formCreateText[isEnglish ?? true ? "en" : "cz"].header}
+                ? formUpdateText[(isEnglish ?? true) ? "en" : "cz"].header
+                : formCreateText[(isEnglish ?? true) ? "en" : "cz"].header}
             </DialogTitle>
             <DialogDescription>
-              {formUpdateText[isEnglish ?? true ? "en" : "cz"].headerPara}
+              {formUpdateText[(isEnglish ?? true) ? "en" : "cz"].headerPara}
             </DialogDescription>
           </DialogHeader>
           <ActionForm data={data as any} userIp={ip} isUpdate={isUpdate} />

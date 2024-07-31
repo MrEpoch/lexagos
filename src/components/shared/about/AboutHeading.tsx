@@ -8,7 +8,7 @@ export default function AboutHeading() {
 
   return (
     <span className="bg-gradient-to-br from-primary to-red-900 bg-clip-text text-transparent box-decoration-clone">
-      {section2About[isEnglish ?? true ? "en" : "cz"].heading}
+      {section2About[(isEnglish ?? true) ? "en" : "cz"].heading}
     </span>
   );
 }

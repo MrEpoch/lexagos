@@ -30,6 +30,8 @@ export default function CookieConsent({
 
   const decline = () => {
     setIsOpen(false);
+    document.cookie =
+      "cookieConsent=false; expires=Fri, 31 Dec 9999 23:59:59 GMT";
     setTimeout(() => {
       setHide(true);
     }, 700);
@@ -39,7 +41,10 @@ export default function CookieConsent({
   useEffect(() => {
     try {
       setIsOpen(true);
-      if (document.cookie.includes("cookieConsent=true")) {
+      if (
+        document.cookie.includes("cookieConsent=true") ||
+        document.cookie.includes("cookieConsent=false")
+      ) {
         if (!demo) {
           setIsOpen(false);
           setTimeout(() => {
@@ -50,7 +55,7 @@ export default function CookieConsent({
     } catch (e) {
       // console.log("Error: ", e);
     }
-  }, []);
+  });
 
   return (
     <div

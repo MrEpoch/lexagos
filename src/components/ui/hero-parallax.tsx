@@ -118,11 +118,11 @@ export const Header = () => {
         role="hero-heading-h"
         className="text-2xl md:text-7xl font-bold dark:text-white"
       >
-        {section1About[isEnglish ?? true ? "en" : "cz"].heading.part1}{" "}
+        {section1About[(isEnglish ?? true) ? "en" : "cz"].heading.part1}{" "}
         <span className="bg-gradient-to-br from-primary to-red-900 bg-clip-text text-transparent box-decoration-clone">
-          {section1About[isEnglish ?? true ? "en" : "cz"].heading.part2}
+          {section1About[(isEnglish ?? true) ? "en" : "cz"].heading.part2}
         </span>{" "}
-        <br /> {section1About[isEnglish ?? true ? "en" : "cz"].heading.part3}
+        <br /> {section1About[(isEnglish ?? true) ? "en" : "cz"].heading.part3}
       </h1>
       <p
         role="hero-heading-para"

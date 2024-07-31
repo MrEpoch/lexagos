@@ -74,14 +74,14 @@ export function AddCourseCreatorForm({ ip }: { ip: string }) {
                 />
               </FormControl>
               <FormDescription role="input-desc">
-                {formCreatorManage[isEnglish ?? true ? "en" : "cz"].para1}
+                {formCreatorManage[(isEnglish ?? true) ? "en" : "cz"].para1}
               </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
         <Button disabled={submitting} type="submit">
-          {formCreatorManage[isEnglish ?? true ? "en" : "cz"].btn1}
+          {formCreatorManage[(isEnglish ?? true) ? "en" : "cz"].btn1}
         </Button>
       </form>
     </Form>

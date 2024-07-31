@@ -19,16 +19,31 @@ export default async function page({ params }: coursePageParams) {
   return (
     <main className="min-h-screen w-full pb-16 pt-32">
       <div className="flex flex-col gap-8 max-w-screen-xl h-full mx-auto w-full px-4 sm:px-6 lg:px-8 z-10">
-        <h1 className="text-3xl font-semibold">{course.data.name}</h1>
-        <Image
-          src={course.data.imageUrl as string}
-          className="sm:w-[675px] bg-gray-300 w-full object-cover self-center h-[400px]"
-          alt={course.data.name}
-          width={1500}
-          height={1500}
-        />
-        <p className="text-lg">{course.data.description}</p>
-        <AddCourseToUser courseId={course.data.id} />
+        <section className="text-gray-300 body-font overflow-hidden">
+          <div className="flex gap-4 md:flex-row flex-col">
+            <Image
+              alt={course.data.name}
+              className="w-full  h-auto aspect-square object-cover object-center rounded"
+              src={course.data.imageUrl || ""}
+              width={1000}
+              height={1000}
+            />
+            <div className="min-h-full w-full flex flex-col gap-2 justify-center">
+              <h1 className="text-gray-100 text-3xl title-font font-medium mb-1">
+                {course.data.name}
+              </h1>
+              <p className="leading-relaxed">{course.data.description}</p>
+              <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-900 mb-5">
+                <div className="flex justify-between w-full">
+                  <span className="title-font font-medium w-fit text-2xl text-gray-100">
+                    ${course.data.price}
+                  </span>
+                  <AddCourseToUser courseId={course.data.id} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </main>
   );

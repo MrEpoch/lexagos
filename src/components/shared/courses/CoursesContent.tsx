@@ -42,8 +42,8 @@ export default function CoursesContent({
   }
 
   return (
-    <div className="w-full">
-      <div className="min-h-screen flex flex-wrap gap-4 justify-center items-center w-full h-full">
+    <div className="w-full py-8">
+      <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {courses.map((item: Course, index: number) => (
           <CourseCard isAction={isAction} ip={ip} key={index} content={item} />
         ))}

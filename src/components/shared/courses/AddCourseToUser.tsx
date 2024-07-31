@@ -20,7 +20,7 @@ export default function AddCourseToUser({ courseId }: { courseId: string }) {
       onClick={addCourse}
       type="button"
       variant="secondary"
-      className="w-full"
+      className="w-fit"
     >
       Enroll
     </Button>

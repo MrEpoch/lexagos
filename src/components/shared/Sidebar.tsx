@@ -22,7 +22,7 @@ export default function Sidebar({
   isCreator?: boolean;
 }) {
   const { isEnglish } = useLang() as { isEnglish: boolean };
-  const sidebarData = getSidebarData(isEnglish ?? true ? "en" : "cz");
+  const sidebarData = getSidebarData((isEnglish ?? true) ? "en" : "cz");
 
   return (
     <Sheet>
@@ -31,7 +31,11 @@ export default function Sidebar({
           <Menu />
         </SheetTrigger>
       </FloatingNav>
-      <SheetContent role="sidebar" className="h-full overflow-y-auto" side={"left"}>
+      <SheetContent
+        role="sidebar"
+        className="h-full overflow-y-auto"
+        side={"left"}
+      >
         <SheetHeader className="h-full">
           <SheetTitle
             role="sidebar-heading"

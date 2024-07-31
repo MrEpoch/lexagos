@@ -176,7 +176,7 @@ export default function ActionForm({
         <CustomField
           control={form.control}
           name="title"
-          formLabel={formCreateText[isEnglish ?? true ? "en" : "cz"].title}
+          formLabel={formCreateText[(isEnglish ?? true) ? "en" : "cz"].title}
           render={({ field }) => (
             <Input role="action-input-field" value={field.value} {...field} />
           )}
@@ -185,7 +185,7 @@ export default function ActionForm({
           control={form.control}
           name="description"
           formLabel={
-            formCreateText[isEnglish ?? true ? "en" : "cz"].description
+            formCreateText[(isEnglish ?? true) ? "en" : "cz"].description
           }
           render={({ field }) => (
             <Textarea
@@ -198,7 +198,7 @@ export default function ActionForm({
         <CustomField
           control={form.control}
           name="price"
-          formLabel={formCreateText[isEnglish ?? true ? "en" : "cz"].price}
+          formLabel={formCreateText[(isEnglish ?? true) ? "en" : "cz"].price}
           render={({ field }) => (
             <Input
               role="action-input-field"
@@ -216,8 +216,8 @@ export default function ActionForm({
         />
         <Button disabled={submitting} type="submit">
           {isUpdate
-            ? formUpdateText[isEnglish ?? true ? "en" : "cz"].btn
-            : formCreateText[isEnglish ?? true ? "en" : "cz"].btn}
+            ? formUpdateText[(isEnglish ?? true) ? "en" : "cz"].btn
+            : formCreateText[(isEnglish ?? true) ? "en" : "cz"].btn}
         </Button>
       </form>
     </Form>

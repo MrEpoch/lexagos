@@ -11,7 +11,7 @@ import ErrorHandler from "@/components/shared/ErrorHandler";
 import CookieConsent from "@/components/ui/cookie-consent";
 import LangContextProvider from "@/providers/LangContext";
 import { prisma } from "@/lib/db";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -48,7 +48,7 @@ export default async function RootLayout({
         elements: { card: "bg-white dark:bg-secondary" },
       }}
     >
-      <html suppressHydrationWarning lang="cz">
+      <html suppressHydrationWarning lang="cs">
         <body className={inter.className}>
           <ThemeProvider attribute="class" enableSystem defaultTheme="dark">
             <LangContextProvider>

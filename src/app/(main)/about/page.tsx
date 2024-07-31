@@ -23,54 +23,58 @@ export default async function Page() {
         <hr className="w-full mt-2 font-bold h-0.5 py-4" />
         <div className="h-full items-center gap-16 flex flex-col">
           <div className="flex lg:flex-row flex-col py-16 justify-between items-center gap-5">
-          <div className="flex flex-col gap-5">
-            <h3 role="about-heading" className="text-3xl sm:text-5xl font-bold">Friendly team</h3>
-          <p
-            role="about-paragraph"
-            className="text-base max-w-4xl "
-          >
-            Lorem ipsum dolor sit amet, officia excepteur ex fugiat
-            reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit
-            ex esse exercitation amet. Nisi anim cupidatat excepteur officia.
-            Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate
-            voluptate dolor minim nulla est proident. Nostrud officia pariatur
-            ut officia.
-          </p>
+            <div className="flex flex-col gap-5">
+              <h3
+                role="about-heading"
+                className="text-3xl sm:text-5xl font-bold"
+              >
+                Friendly team
+              </h3>
+              <p role="about-paragraph" className="text-base max-w-4xl ">
+                Lorem ipsum dolor sit amet, officia excepteur ex fugiat
+                reprehenderit enim labore culpa sint ad nisi Lorem pariatur
+                mollit ex esse exercitation amet. Nisi anim cupidatat excepteur
+                officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip
+                amet voluptate voluptate dolor minim nulla est proident. Nostrud
+                officia pariatur ut officia.
+              </p>
+            </div>
+            <Image
+              role="about-image"
+              src="/assets/team.jpg"
+              alt="about"
+              width={500}
+              height={500}
+              className="rounded"
+            />
           </div>
-          <Image
-            role="about-image"
-            src="/assets/team.jpg"
-            alt="about"
-            width={500}
-            height={500}
-            className="rounded"
-    />
-      </div>
-      <div className="flex lg:flex-row flex-col py-16 justify-between items-center gap-5">
-          <Image
-            role="about-image"
-            src="/assets/coffee.jpg"
-            alt="about"
-            width={500}
-            height={500}
-            className="rounded"
-          />
+          <div className="flex lg:flex-row flex-col py-16 justify-between items-center gap-5">
+            <Image
+              role="about-image"
+              src="/assets/coffee.jpg"
+              alt="about"
+              width={500}
+              height={500}
+              className="rounded"
+            />
 
-        <div className="flex flex-col gap-5">
-          <h3 role="about-heading" className="text-3xl sm:text-5xl font-bold">Coffee lovers collective</h3>
-          <p
-            role="about-paragraph"
-            className="text-base max-w-4xl"
-          >
-            Lorem ipsum dolor sit amet, officia excepteur ex fugiat
-            reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit
-            ex esse exercitation amet. Nisi anim cupidatat excepteur officia.
-            Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate
-            voluptate dolor minim nulla est proident. Nostrud officia pariatur
-            ut officia.
-          </p>
-        </div>
-        </div>
+            <div className="flex flex-col gap-5">
+              <h3
+                role="about-heading"
+                className="text-3xl sm:text-5xl font-bold"
+              >
+                Coffee lovers collective
+              </h3>
+              <p role="about-paragraph" className="text-base max-w-4xl">
+                Lorem ipsum dolor sit amet, officia excepteur ex fugiat
+                reprehenderit enim labore culpa sint ad nisi Lorem pariatur
+                mollit ex esse exercitation amet. Nisi anim cupidatat excepteur
+                officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip
+                amet voluptate voluptate dolor minim nulla est proident. Nostrud
+                officia pariatur ut officia.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

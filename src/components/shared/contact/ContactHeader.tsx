@@ -10,11 +10,11 @@ export default function ContactHeader() {
     <>
       <h1 className="font-extrabold text-4xl lg:text-6xl">
         <span className="bg-gradient-to-br from-primary to-red-900 bg-clip-text text-transparent box-decoration-clone">
-          {sectionContact[isEnglish ?? true ? "en" : "cz"].header}
+          {sectionContact[(isEnglish ?? true) ? "en" : "cz"].header}
         </span>
       </h1>
       <p className="max-w-sm text-xl mt-3 text-gray-100">
-        {sectionContact[isEnglish ?? true ? "en" : "cz"].content1}
+        {sectionContact[(isEnglish ?? true) ? "en" : "cz"].content1}
       </p>
     </>
   );

@@ -8,7 +8,7 @@ export function CourseActionsHeader1() {
 
   return (
     <h1 role="course-action-header" className="text-white font-bold text-3xl">
-      {courseActionText[isEnglish ?? true ? "en" : "cz"].header1}:
+      {courseActionText[(isEnglish ?? true) ? "en" : "cz"].header1}:
     </h1>
   );
 }
@@ -17,7 +17,7 @@ export function CourseActionsHeader2() {
   const { isEnglish } = useLang() as { isEnglish: boolean };
   return (
     <h2 role="course-action-header" className="text-white font-bold text-3xl">
-      {courseActionText[isEnglish ?? true ? "en" : "cz"].header2}:
+      {courseActionText[(isEnglish ?? true) ? "en" : "cz"].header2}:
     </h2>
   );
 }
