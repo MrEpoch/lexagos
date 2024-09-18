@@ -7,7 +7,7 @@ import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import CustomField from "../CustomField";
 import { Textarea } from "@/components/ui/textarea";
-import { useEffect, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import ImageHandler from "./ImageHandler";
 import {

@@ -5,7 +5,6 @@ import React from "react";
 import { headers } from "next/headers";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-import { prisma } from "@/lib/db";
 import { getCourses, getPageCount } from "@/lib/actions/course.action";
 import CoursesContent from "@/components/shared/courses/CoursesContent";
 import { AddCourseCreatorForm } from "@/components/shared/AddCourseCreatorForm";
